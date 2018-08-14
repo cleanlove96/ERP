@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.GcountMapper">
+	<resultMap id="BaseResultMap" type="com.model.Gcount">
+		<id column="gcount_id" property="gcountId" jdbcType="VARCHAR" />
+		<result column="commodity_id" property="commodityId"
+			jdbcType="VARCHAR" />
+		<result column="warehouse_id" property="warehouseId"
+			jdbcType="VARCHAR" />
+		<result column="gcount_amount" property="gcountAmount"
+			jdbcType="INTEGER" />
+		<result column="gcount_money" property="gcountMoney"
+			jdbcType="DOUBLE" />
+	</resultMap>
+	<resultMap id="BaseMap" type="com.pojo.GcountPojo">
+		<id column="gcount_id" property="gcountId" jdbcType="VARCHAR" />
+		<result column="commodity_id" property="commodityId"
+			jdbcType="VARCHAR" />
+		<result column="warehouse_id" property="warehouseId"
+			jdbcType="VARCHAR" />
+		<result column="gcount_amount" property="gcountAmount"
+			jdbcType="INTEGER" />
+		<result column="gcount_money" property="gcountMoney"
+			jdbcType="DOUBLE" />
+		<result column="commodity_name" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="warehouse_name" property="warehouseName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		gcount_id, commodity_id, warehouse_id, gcount_amount,
+		gcount_money
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from gcount
+		where gcount_id = #{gcountId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from gcount
+		where gcount_id = #{gcountId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.Gcount">
+		insert into gcount (gcount_id,
+		commodity_id, warehouse_id,
+		gcount_amount, gcount_money)
+		values
+		(#{gcountId,jdbcType=VARCHAR}, #{commodityId,jdbcType=VARCHAR},
+		#{warehouseId,jdbcType=VARCHAR},
+		#{gcountAmount,jdbcType=INTEGER},
+		#{gcountMoney,jdbcType=DOUBLE})
+	</insert>
+	<insert id="insertSelective" parameterType="com.model.Gcount">
+		insert into gcount
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="gcountId != null">
+				gcount_id,
+			</if>
+			<if test="commodityId != null">
+				commodity_id,
+			</if>
+			<if test="warehouseId != null">
+				warehouse_id,
+			</if>
+			<if test="gcountAmount != null">
+				gcount_amount,
+			</if>
+			<if test="gcountMoney != null">
+				gcount_money,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="gcountId != null">
+				#{gcountId,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityId != null">
+				#{commodityId,jdbcType=VARCHAR},
+			</if>
+			<if test="warehouseId != null">
+				#{warehouseId,jdbcType=VARCHAR},
+			</if>
+			<if test="gcountAmount != null">
+				#{gcountAmount,jdbcType=INTEGER},
+			</if>
+			<if test="gcountMoney != null">
+				#{gcountMoney,jdbcType=DOUBLE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.Gcount">
+		update gcount
+		<set>
+			<if test="commodityId != null">
+				commodity_id = #{commodityId,jdbcType=VARCHAR},
+			</if>
+			<if test="warehouseId != null">
+				warehouse_id = #{warehouseId,jdbcType=VARCHAR},
+			</if>
+			<if test="gcountAmount != null">
+				gcount_amount = #{gcountAmount,jdbcType=INTEGER},
+			</if>
+			<if test="gcountMoney != null">
+				gcount_money = #{gcountMoney,jdbcType=DOUBLE},
+			</if>
+		</set>
+		where gcount_id = #{gcountId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.model.Gcount">
+		update gcount
+		set
+		commodity_id = #{commodityId,jdbcType=VARCHAR},
+		warehouse_id =
+		#{warehouseId,jdbcType=VARCHAR},
+		gcount_amount =
+		#{gcountAmount,jdbcType=INTEGER},
+		gcount_money =
+		#{gcountMoney,jdbcType=DOUBLE}
+		where gcount_id =
+		#{gcountId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getInfoTable" resultMap="BaseMap">
+		SELECT
+		warehouse.warehouse_name,
+		system_commodity_information.commodity_name,
+		gcount.gcount_id,
+		gcount.commodity_id,
+		gcount.warehouse_id,
+		gcount.gcount_amount,
+		gcount.gcount_money
+		FROM
+		gcount
+		INNER JOIN warehouse
+		ON
+		gcount.warehouse_id = warehouse.warehouse_id
+		INNER JOIN
+		system_commodity_information ON gcount.commodity_id =
+		system_commodity_information.commodity_id
+		where commodity_name like
+		#{s,jdbcType=VARCHAR}
+		limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+
+	<select id="getTotalNum" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM
+		gcount
+		INNER JOIN warehouse ON
+		gcount.warehouse_id = warehouse.warehouse_id
+		INNER JOIN
+		system_commodity_information ON gcount.commodity_id =
+		system_commodity_information.commodity_id
+		where commodity_name like
+		#{s,jdbcType=VARCHAR} 
+	</select>
+
+	<select id="selectByCommodityIdAndWarehouseId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		*
+		FROM
+		gcount
+		where gcount.commodity_id =
+		#{commodityId,jdbcType=VARCHAR} and warehouse_id = #{warehouseId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectById" resultMap="BaseMap">
+		SELECT
+		warehouse.warehouse_name,
+		system_commodity_information.commodity_name,
+		gcount.gcount_id,
+		gcount.commodity_id,
+		gcount.warehouse_id,
+		gcount.gcount_amount,
+		gcount.gcount_money
+		FROM
+		gcount
+		INNER JOIN warehouse
+		ON
+		gcount.warehouse_id = warehouse.warehouse_id
+		INNER JOIN
+		system_commodity_information ON gcount.commodity_id =
+		system_commodity_information.commodity_id
+		where gcount_id = #{gcountId,jdbcType=VARCHAR}
+	</select>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.LeaveRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.model.LeaveRecord" >
+    <id column="leave_record_id" property="leaveRecordId" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="leave_time" property="leaveTime" jdbcType="TIMESTAMP" />
+    <result column="leave_days" property="leaveDays" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    leave_record_id, account_id, leave_time, leave_days
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from leave_record
+    where leave_record_id = #{leaveRecordId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from leave_record
+    where leave_record_id = #{leaveRecordId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.LeaveRecord" >
+    insert into leave_record (leave_record_id, account_id, leave_time, 
+      leave_days)
+    values (#{leaveRecordId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{leaveTime,jdbcType=TIMESTAMP}, 
+      #{leaveDays,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.LeaveRecord" >
+    insert into leave_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="leaveRecordId != null" >
+        leave_record_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="leaveTime != null" >
+        leave_time,
+      </if>
+      <if test="leaveDays != null" >
+        leave_days,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="leaveRecordId != null" >
+        #{leaveRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveTime != null" >
+        #{leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveDays != null" >
+        #{leaveDays,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.LeaveRecord" >
+    update leave_record
+    <set >
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveTime != null" >
+        leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveDays != null" >
+        leave_days = #{leaveDays,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where leave_record_id = #{leaveRecordId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.LeaveRecord" >
+    update leave_record
+    set account_id = #{accountId,jdbcType=VARCHAR},
+      leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+      leave_days = #{leaveDays,jdbcType=DOUBLE}
+    where leave_record_id = #{leaveRecordId,jdbcType=VARCHAR}
+  </update>
+</mapper>

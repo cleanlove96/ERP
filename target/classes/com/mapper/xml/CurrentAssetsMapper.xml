@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.CurrentAssetsMapper" >
+  <resultMap id="BaseResultMap" type="com.model.CurrentAssets" >
+    <id column="all_assets_id" property="allAssetsId" jdbcType="VARCHAR" />
+    <result column="fixed_assets" property="fixedAssets" jdbcType="DOUBLE" />
+    <result column="current_assets" property="currentAssets" jdbcType="DOUBLE" />
+    <result column="assets_time" property="assetsTime" jdbcType="TIMESTAMP" />
+    <result column="assets_describe" property="assetsDescribe" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    all_assets_id, fixed_assets, current_assets, assets_time, assets_describe
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from current_assets
+    where all_assets_id = #{allAssetsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from current_assets
+    where all_assets_id = #{allAssetsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.CurrentAssets" >
+    insert into current_assets (all_assets_id, fixed_assets, current_assets, 
+      assets_time, assets_describe)
+    values (#{allAssetsId,jdbcType=VARCHAR}, #{fixedAssets,jdbcType=DOUBLE}, #{currentAssets,jdbcType=DOUBLE}, 
+      #{assetsTime,jdbcType=TIMESTAMP}, #{assetsDescribe,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.CurrentAssets" >
+    insert into current_assets
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="allAssetsId != null" >
+        all_assets_id,
+      </if>
+      <if test="fixedAssets != null" >
+        fixed_assets,
+      </if>
+      <if test="currentAssets != null" >
+        current_assets,
+      </if>
+      <if test="assetsTime != null" >
+        assets_time,
+      </if>
+      <if test="assetsDescribe != null" >
+        assets_describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="allAssetsId != null" >
+        #{allAssetsId,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedAssets != null" >
+        #{fixedAssets,jdbcType=DOUBLE},
+      </if>
+      <if test="currentAssets != null" >
+        #{currentAssets,jdbcType=DOUBLE},
+      </if>
+      <if test="assetsTime != null" >
+        #{assetsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assetsDescribe != null" >
+        #{assetsDescribe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.CurrentAssets" >
+    update current_assets
+    <set >
+      <if test="fixedAssets != null" >
+        fixed_assets = #{fixedAssets,jdbcType=DOUBLE},
+      </if>
+      <if test="currentAssets != null" >
+        current_assets = #{currentAssets,jdbcType=DOUBLE},
+      </if>
+      <if test="assetsTime != null" >
+        assets_time = #{assetsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assetsDescribe != null" >
+        assets_describe = #{assetsDescribe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where all_assets_id = #{allAssetsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.CurrentAssets" >
+    update current_assets
+    set fixed_assets = #{fixedAssets,jdbcType=DOUBLE},
+      current_assets = #{currentAssets,jdbcType=DOUBLE},
+      assets_time = #{assetsTime,jdbcType=TIMESTAMP},
+      assets_describe = #{assetsDescribe,jdbcType=VARCHAR}
+    where all_assets_id = #{allAssetsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

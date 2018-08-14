@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.PurchaseTableMapper" >
+  <resultMap id="BaseResultMap" type="com.model.PurchaseTable" >
+    <id column="purchase_table_id" property="purchaseTableId" jdbcType="VARCHAR" />
+    <result column="extend_id" property="extendId" jdbcType="VARCHAR" />
+    <result column="material_id" property="materialId" jdbcType="VARCHAR" />
+    <result column="purchase_table_int" property="purchaseTableInt" jdbcType="INTEGER" />
+    <result column="purchase_table_money" property="purchaseTableMoney" jdbcType="DOUBLE" />
+    <result column="purchase_table_time" property="purchaseTableTime" jdbcType="VARCHAR" />
+    <result column="purchase" property="purchase" jdbcType="VARCHAR" />
+    <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="purchase_table_price" property="purchaseTablePrice" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    purchase_table_id, extend_id, material_id, purchase_table_int, purchase_table_money, 
+    purchase_table_time, purchase, Remarks, purchase_table_price
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchase_table
+    where purchase_table_id = #{purchaseTableId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from purchase_table
+    where purchase_table_id = #{purchaseTableId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.PurchaseTable" >
+    insert into purchase_table (purchase_table_id, extend_id, material_id, 
+      purchase_table_int, purchase_table_money, purchase_table_time, 
+      purchase, Remarks, purchase_table_price
+      )
+    values (#{purchaseTableId,jdbcType=VARCHAR}, #{extendId,jdbcType=VARCHAR}, #{materialId,jdbcType=VARCHAR}, 
+      #{purchaseTableInt,jdbcType=INTEGER}, #{purchaseTableMoney,jdbcType=DOUBLE}, #{purchaseTableTime,jdbcType=VARCHAR}, 
+      #{purchase,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{purchaseTablePrice,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.PurchaseTable" >
+    insert into purchase_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purchaseTableId != null" >
+        purchase_table_id,
+      </if>
+      <if test="extendId != null" >
+        extend_id,
+      </if>
+      <if test="materialId != null" >
+        material_id,
+      </if>
+      <if test="purchaseTableInt != null" >
+        purchase_table_int,
+      </if>
+      <if test="purchaseTableMoney != null" >
+        purchase_table_money,
+      </if>
+      <if test="purchaseTableTime != null" >
+        purchase_table_time,
+      </if>
+      <if test="purchase != null" >
+        purchase,
+      </if>
+      <if test="remarks != null" >
+        Remarks,
+      </if>
+      <if test="purchaseTablePrice != null" >
+        purchase_table_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purchaseTableId != null" >
+        #{purchaseTableId,jdbcType=VARCHAR},
+      </if>
+      <if test="extendId != null" >
+        #{extendId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialId != null" >
+        #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTableInt != null" >
+        #{purchaseTableInt,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseTableMoney != null" >
+        #{purchaseTableMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="purchaseTableTime != null" >
+        #{purchaseTableTime,jdbcType=VARCHAR},
+      </if>
+      <if test="purchase != null" >
+        #{purchase,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTablePrice != null" >
+        #{purchaseTablePrice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.PurchaseTable" >
+    update purchase_table
+    <set >
+      <if test="extendId != null" >
+        extend_id = #{extendId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialId != null" >
+        material_id = #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTableInt != null" >
+        purchase_table_int = #{purchaseTableInt,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseTableMoney != null" >
+        purchase_table_money = #{purchaseTableMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="purchaseTableTime != null" >
+        purchase_table_time = #{purchaseTableTime,jdbcType=VARCHAR},
+      </if>
+      <if test="purchase != null" >
+        purchase = #{purchase,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTablePrice != null" >
+        purchase_table_price = #{purchaseTablePrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where purchase_table_id = #{purchaseTableId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.PurchaseTable" >
+    update purchase_table
+    set extend_id = #{extendId,jdbcType=VARCHAR},
+      material_id = #{materialId,jdbcType=VARCHAR},
+      purchase_table_int = #{purchaseTableInt,jdbcType=INTEGER},
+      purchase_table_money = #{purchaseTableMoney,jdbcType=DOUBLE},
+      purchase_table_time = #{purchaseTableTime,jdbcType=VARCHAR},
+      purchase = #{purchase,jdbcType=VARCHAR},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      purchase_table_price = #{purchaseTablePrice,jdbcType=DOUBLE}
+    where purchase_table_id = #{purchaseTableId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectCountByIdAndYear" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchase_table
+    where  material_id = #{materialId,jdbcType=VARCHAR} and purchase = #{searchCard,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectExtendIdByYear" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchase_table
+    where purchase = #{searchCard,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectAllByExtendId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchase_table
+    where  extend_id = #{extendId,jdbcType=VARCHAR}
+  </select>
+</mapper>

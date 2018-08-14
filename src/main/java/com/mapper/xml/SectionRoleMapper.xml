@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.SectionRoleMapper">
+	<resultMap id="BaseResultMap" type="com.model.SectionRole">
+		<id column="section_role_id" property="sectionRoleId"
+			jdbcType="VARCHAR" />
+		<result column="role_id" property="roleId" jdbcType="VARCHAR" />
+		<result column="section_id" property="sectionId"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="BaseZtreeResultMap" type="com.pojo.Ztree">
+		<id column="role_name" property="roleName" jdbcType="VARCHAR" />
+		<result column="section_name" property="sectionName"
+			jdbcType="VARCHAR" />
+		<result column="account_name" property="accountName"
+			jdbcType="VARCHAR" />
+		<result column="section_id" property="sectionId"
+			jdbcType="VARCHAR" />
+		<result column="account_id" property="accountId"
+			jdbcType="VARCHAR" />
+		<result column="role_id" property="accountId"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		section_role_id, role_id, section_id
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from section_role
+		where section_role_id =
+		#{sectionRoleId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		section_role
+		where section_role_id = #{sectionRoleId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.SectionRole">
+		insert into section_role
+		(section_role_id, role_id, section_id
+		)
+		values
+		(#{sectionRoleId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR},
+		#{sectionId,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.model.SectionRole">
+		insert into section_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sectionRoleId != null">
+				section_role_id,
+			</if>
+			<if test="roleId != null">
+				role_id,
+			</if>
+			<if test="sectionId != null">
+				section_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sectionRoleId != null">
+				#{sectionRoleId,jdbcType=VARCHAR},
+			</if>
+			<if test="roleId != null">
+				#{roleId,jdbcType=VARCHAR},
+			</if>
+			<if test="sectionId != null">
+				#{sectionId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.SectionRole">
+		update section_role
+		<set>
+			<if test="roleId != null">
+				role_id = #{roleId,jdbcType=VARCHAR},
+			</if>
+			<if test="sectionId != null">
+				section_id = #{sectionId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where section_role_id = #{sectionRoleId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.SectionRole">
+		update section_role
+		set role_id =
+		#{roleId,jdbcType=VARCHAR},
+		section_id = #{sectionId,jdbcType=VARCHAR}
+		where section_role_id = #{sectionRoleId,jdbcType=VARCHAR}
+	</update>
+	<select id="getAllNodes" resultMap="BaseZtreeResultMap">
+		SELECT
+		sys_role.role_name,
+		section_info.section_name,
+		system_account.account_name,
+		section_role.section_id,
+		sys_role.role_id,
+		system_account.account_id
+		FROM
+		sys_role
+		INNER JOIN section_role ON sys_role.role_id = section_role.role_id
+		INNER JOIN account_role ON account_role.role_id =
+		sys_role.role_id
+		INNER JOIN section_info ON section_role.section_id =
+		section_info.section_id
+		INNER JOIN system_account ON system_account.account_id =
+		account_role.account_id
+	</select>
+	
+	<select id="selsectSectionRoleAllByRoleId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from section_role
+		where role_id = #{roleId,jdbcType=VARCHAR}
+	</select>
+	
+		<select id="selectBysectionId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from section_role
+		where section_id = #{sectionId,jdbcType=VARCHAR}
+	</select>
+</mapper>

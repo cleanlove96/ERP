@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.AuthGroupMapper">
+	<resultMap id="BaseResultMap" type="com.model.AuthGroup">
+		<id column="auth_group_id" jdbcType="VARCHAR" property="authGroupId" />
+		<result column="auth_group_name" jdbcType="VARCHAR" property="authGroupName" />
+		<result column="auth_group_icon" jdbcType="VARCHAR" property="authGroupIcon" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		auth_group_id, auth_group_name, auth_group_icon
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from auth_group
+		where auth_group_id = #{authGroupId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from auth_group
+		where auth_group_id = #{authGroupId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.AuthGroup">
+		insert into auth_group (auth_group_id, auth_group_name, auth_group_icon
+		)
+		values (#{authGroupId,jdbcType=VARCHAR}, #{authGroupName,jdbcType=VARCHAR},
+		#{authGroupIcon,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.model.AuthGroup">
+		insert into auth_group
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="authGroupId != null">
+				auth_group_id,
+			</if>
+			<if test="authGroupName != null">
+				auth_group_name,
+			</if>
+			<if test="authGroupIcon != null">
+				auth_group_icon,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="authGroupId != null">
+				#{authGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="authGroupName != null">
+				#{authGroupName,jdbcType=VARCHAR},
+			</if>
+			<if test="authGroupIcon != null">
+				#{authGroupIcon,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.model.AuthGroup">
+		update auth_group
+		<set>
+			<if test="authGroupName != null">
+				auth_group_name = #{authGroupName,jdbcType=VARCHAR},
+			</if>
+			<if test="authGroupIcon != null">
+				auth_group_icon = #{authGroupIcon,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where auth_group_id = #{authGroupId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.model.AuthGroup">
+		update auth_group
+		set auth_group_name = #{authGroupName,jdbcType=VARCHAR},
+		auth_group_icon = #{authGroupIcon,jdbcType=VARCHAR}
+		where auth_group_id = #{authGroupId,jdbcType=VARCHAR}
+	</update>
+	<select id="selectAll" resultMap="BaseResultMap">
+		SELECT * FROM auth_group
+	</select>
+</mapper>

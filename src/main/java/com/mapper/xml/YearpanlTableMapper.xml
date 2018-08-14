@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.YearpanlTableMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YearpanlTable" >
+    <id column="yearpanl_table_id" property="yearpanlTableId" jdbcType="VARCHAR" />
+    <result column="commodity_id" property="commodityId" jdbcType="VARCHAR" />
+    <result column="year_num" property="yearNum" jdbcType="VARCHAR" />
+    <result column="yearpanl_variety" property="yearpanlVariety" jdbcType="VARCHAR" />
+    <result column="goods_sum" property="goodsSum" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    yearpanl_table_id, commodity_id, year_num, yearpanl_variety, goods_sum, start_time, 
+    account_id, end_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from yearpanl_table
+    where yearpanl_table_id = #{yearpanlTableId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from yearpanl_table
+    where yearpanl_table_id = #{yearpanlTableId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.YearpanlTable" >
+    insert into yearpanl_table (yearpanl_table_id, commodity_id, year_num, 
+      yearpanl_variety, goods_sum, start_time, 
+      account_id, end_time)
+    values (#{yearpanlTableId,jdbcType=VARCHAR}, #{commodityId,jdbcType=VARCHAR}, #{yearNum,jdbcType=VARCHAR}, 
+      #{yearpanlVariety,jdbcType=VARCHAR}, #{goodsSum,jdbcType=INTEGER}, #{startTime,jdbcType=VARCHAR}, 
+      #{accountId,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YearpanlTable" >
+    insert into yearpanl_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="yearpanlTableId != null" >
+        yearpanl_table_id,
+      </if>
+      <if test="commodityId != null" >
+        commodity_id,
+      </if>
+      <if test="yearNum != null" >
+        year_num,
+      </if>
+      <if test="yearpanlVariety != null" >
+        yearpanl_variety,
+      </if>
+      <if test="goodsSum != null" >
+        goods_sum,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="yearpanlTableId != null" >
+        #{yearpanlTableId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityId != null" >
+        #{commodityId,jdbcType=VARCHAR},
+      </if>
+      <if test="yearNum != null" >
+        #{yearNum,jdbcType=VARCHAR},
+      </if>
+      <if test="yearpanlVariety != null" >
+        #{yearpanlVariety,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSum != null" >
+        #{goodsSum,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YearpanlTable" >
+    update yearpanl_table
+    <set >
+      <if test="commodityId != null" >
+        commodity_id = #{commodityId,jdbcType=VARCHAR},
+      </if>
+      <if test="yearNum != null" >
+        year_num = #{yearNum,jdbcType=VARCHAR},
+      </if>
+      <if test="yearpanlVariety != null" >
+        yearpanl_variety = #{yearpanlVariety,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSum != null" >
+        goods_sum = #{goodsSum,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where yearpanl_table_id = #{yearpanlTableId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YearpanlTable" >
+    update yearpanl_table
+    set commodity_id = #{commodityId,jdbcType=VARCHAR},
+      year_num = #{yearNum,jdbcType=VARCHAR},
+      yearpanl_variety = #{yearpanlVariety,jdbcType=VARCHAR},
+      goods_sum = #{goodsSum,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR}
+    where yearpanl_table_id = #{yearpanlTableId,jdbcType=VARCHAR}
+  </update>
+  <select id="getYearplanTable" resultMap="BaseResultMap"  parameterType="java.util.Map" >
+    select 
+    *
+    from yearpanl_table
+    where year_num like #{searchCard,jdbcType=VARCHAR} and commodity_id like #{myCommodity,jdbcType=VARCHAR}
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select 
+    count(*)
+    from yearpanl_table
+    where  year_num like #{searchCard,jdbcType=VARCHAR} and commodity_id like #{myCommodity,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectAccountIdByYear" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from yearpanl_table
+    where year_num = #{year,jdbcType=VARCHAR}
+  </select>
+</mapper>

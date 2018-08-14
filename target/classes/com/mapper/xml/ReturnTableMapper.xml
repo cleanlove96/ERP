@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.ReturnTableMapper" >
+  <resultMap id="BaseResultMap" type="com.model.ReturnTable" >
+    <id column="return_id" property="returnId" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="commodity_id" property="commodityId" jdbcType="VARCHAR" />
+    <result column="return_amount" property="returnAmount" jdbcType="INTEGER" />
+    <result column="order_price" property="orderPrice" jdbcType="DOUBLE" />
+    <result column="return_reason" property="returnReason" jdbcType="VARCHAR" />
+    <result column="return_time" property="returnTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    return_id, customer_id, account_id, commodity_id, return_amount, order_price, return_reason, 
+    return_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from return_table
+    where return_id = #{returnId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from return_table
+    where return_id = #{returnId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.ReturnTable" >
+    insert into return_table (return_id, customer_id, account_id, 
+      commodity_id, return_amount, order_price, 
+      return_reason, return_time)
+    values (#{returnId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
+      #{commodityId,jdbcType=VARCHAR}, #{returnAmount,jdbcType=INTEGER}, #{orderPrice,jdbcType=DOUBLE}, 
+      #{returnReason,jdbcType=VARCHAR}, #{returnTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.ReturnTable" >
+    insert into return_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="returnId != null" >
+        return_id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="commodityId != null" >
+        commodity_id,
+      </if>
+      <if test="returnAmount != null" >
+        return_amount,
+      </if>
+      <if test="orderPrice != null" >
+        order_price,
+      </if>
+      <if test="returnReason != null" >
+        return_reason,
+      </if>
+      <if test="returnTime != null" >
+        return_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="returnId != null" >
+        #{returnId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityId != null" >
+        #{commodityId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnAmount != null" >
+        #{returnAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderPrice != null" >
+        #{orderPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="returnReason != null" >
+        #{returnReason,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTime != null" >
+        #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.ReturnTable" >
+    update return_table
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityId != null" >
+        commodity_id = #{commodityId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnAmount != null" >
+        return_amount = #{returnAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderPrice != null" >
+        order_price = #{orderPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="returnReason != null" >
+        return_reason = #{returnReason,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTime != null" >
+        return_time = #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where return_id = #{returnId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.ReturnTable" >
+    update return_table
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      commodity_id = #{commodityId,jdbcType=VARCHAR},
+      return_amount = #{returnAmount,jdbcType=INTEGER},
+      order_price = #{orderPrice,jdbcType=DOUBLE},
+      return_reason = #{returnReason,jdbcType=VARCHAR},
+      return_time = #{returnTime,jdbcType=TIMESTAMP}
+    where return_id = #{returnId,jdbcType=VARCHAR}
+  </update>
+</mapper>

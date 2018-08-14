@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.MoneyManagementTableMapper">
+	<resultMap id="BaseResultMap"
+		type="com.model.MoneyManagementTable">
+		<id column="money_man_id" property="moneyManId" jdbcType="VARCHAR" />
+		<result column="customer_id" property="customerId"
+			jdbcType="VARCHAR" />
+		<result column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<result column="purchase_table_id" property="purchaseTableId"
+			jdbcType="VARCHAR" />
+		<result column="all_money" property="allMoney"
+			jdbcType="DOUBLE" />
+		<result column="paid_amount" property="paidAmount"
+			jdbcType="DOUBLE" />
+		<result column="unpaid_amount" property="unpaidAmount"
+			jdbcType="DOUBLE" />
+		<result column="complete_time" property="completeTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="BaseMoneyResultMap" type="com.pojo.MoneyTable">
+		<result column="customer_name" property="customerName"
+			jdbcType="VARCHAR" />
+		<result column="paid_amount" property="paidAmount"
+			jdbcType="DOUBLE" />
+		<result column="unpaid_amount" property="unpaidAmount"
+			jdbcType="DOUBLE" />
+		<result column="all_money" property="allMoney"
+			jdbcType="DOUBLE" />
+		<result column="complete_time" property="completeTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="BaseLooksResultMap"
+		type="com.pojo.MoneyTableLooks">
+		<result column="sale_bill_id" property="saleBillId"
+			jdbcType="VARCHAR" />
+		<result column="customer_name" property="customerName"
+			jdbcType="VARCHAR" />
+		<result column="paid_amount" property="paidAmount"
+			jdbcType="DOUBLE" />
+		<result column="unpaid_amount" property="unpaidAmount"
+			jdbcType="DOUBLE" />
+		<result column="total" property="total" jdbcType="DOUBLE" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="sum" property="sum" jdbcType="INTEGER" />
+		<result column="account_name" property="accountName"
+			jdbcType="VARCHAR" />
+		<result column="commodity_name" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="complete_time" property="completeTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		money_man_id, customer_id, order_id, purchase_table_id,
+		all_money, paid_amount,
+		unpaid_amount,
+		complete_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from money_management_table
+		where money_man_id =
+		#{moneyManId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		money_management_table
+		where money_man_id =
+		#{moneyManId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert"
+		parameterType="com.model.MoneyManagementTable">
+		insert into money_management_table (money_man_id,
+		customer_id, order_id,
+		purchase_table_id, all_money, paid_amount,
+		unpaid_amount, complete_time)
+		values (#{moneyManId,jdbcType=VARCHAR},
+		#{customerId,jdbcType=VARCHAR},
+		#{orderId,jdbcType=VARCHAR},
+		#{purchaseTableId,jdbcType=VARCHAR}, #{allMoney,jdbcType=DOUBLE},
+		#{paidAmount,jdbcType=DOUBLE},
+		#{unpaidAmount,jdbcType=DOUBLE},
+		#{completeTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.model.MoneyManagementTable">
+		insert into money_management_table
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="moneyManId != null">
+				money_man_id,
+			</if>
+			<if test="customerId != null">
+				customer_id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="purchaseTableId != null">
+				purchase_table_id,
+			</if>
+			<if test="allMoney != null">
+				all_money,
+			</if>
+			<if test="paidAmount != null">
+				paid_amount,
+			</if>
+			<if test="unpaidAmount != null">
+				unpaid_amount,
+			</if>
+			<if test="completeTime != null">
+				complete_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="moneyManId != null">
+				#{moneyManId,jdbcType=VARCHAR},
+			</if>
+			<if test="customerId != null">
+				#{customerId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseTableId != null">
+				#{purchaseTableId,jdbcType=VARCHAR},
+			</if>
+			<if test="allMoney != null">
+				#{allMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="paidAmount != null">
+				#{paidAmount,jdbcType=DOUBLE},
+			</if>
+			<if test="unpaidAmount != null">
+				#{unpaidAmount,jdbcType=DOUBLE},
+			</if>
+			<if test="completeTime != null">
+				#{completeTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.MoneyManagementTable">
+		update money_management_table
+		<set>
+			<if test="customerId != null">
+				customer_id = #{customerId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseTableId != null">
+				purchase_table_id = #{purchaseTableId,jdbcType=VARCHAR},
+			</if>
+			<if test="allMoney != null">
+				all_money = #{allMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="paidAmount != null">
+				paid_amount = #{paidAmount,jdbcType=DOUBLE},
+			</if>
+			<if test="unpaidAmount != null">
+				unpaid_amount = #{unpaidAmount,jdbcType=DOUBLE},
+			</if>
+			<if test="completeTime != null">
+				complete_time = #{completeTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where money_man_id = #{moneyManId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.MoneyManagementTable">
+		update money_management_table
+		set customer_id =
+		#{customerId,jdbcType=VARCHAR},
+		order_id = #{orderId,jdbcType=VARCHAR},
+		purchase_table_id = #{purchaseTableId,jdbcType=VARCHAR},
+		all_money =
+		#{allMoney,jdbcType=DOUBLE},
+		paid_amount =
+		#{paidAmount,jdbcType=DOUBLE},
+		unpaid_amount =
+		#{unpaidAmount,jdbcType=DOUBLE},
+		complete_time =
+		#{completeTime,jdbcType=TIMESTAMP}
+		where money_man_id =
+		#{moneyManId,jdbcType=VARCHAR}
+	</update>
+	<select id="getTotalNums" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT
+		COUNT(*)
+		from (SELECT
+		customer_info.customer_name,
+		Sum(money_management_table.paid_amount),
+		Sum(money_management_table.unpaid_amount),
+		Sum(money_management_table.all_money),
+		money_management_table.complete_time
+		from
+		money_management_table
+		LEFT
+		JOIN customer_info ON money_management_table.customer_id =
+		customer_info.customer_id
+		WHERE customer_info.customer_name like
+		#{searchCustomer,jdbcType=VARCHAR} AND
+		money_management_table.complete_time BETWEEN
+		#{searchTimeStart,jdbcType=VARCHAR} AND
+		#{searchTimeEnd,jdbcType=VARCHAR}
+		group by customer_info.customer_id
+		)as yep
+	</select>
+	<select id="getReceivingTable" parameterType="java.util.Map"
+		resultMap="BaseMoneyResultMap">
+		SELECT
+		customer_info.customer_name,
+		Sum(money_management_table.paid_amount) as paid_amount,
+		Sum(money_management_table.unpaid_amount) as unpaid_amount,
+		SUM(money_management_table.all_money) as all_money ,
+		money_management_table.complete_time
+		FROM
+		money_management_table
+		INNER
+		JOIN customer_info ON money_management_table.customer_id =
+		customer_info.customer_id
+		where customer_info.customer_name LIKE
+		#{searchCustomer,jdbcType=VARCHAR} and
+		money_management_table.complete_time BETWEEN
+		#{searchTimeStart,jdbcType=VARCHAR} AND
+		#{searchTimeEnd,jdbcType=VARCHAR}
+		group by
+		customer_info.customer_id
+		LIMIT
+		#{start,jdbcType=VARCHAR},#{size,jdbcType=VARCHAR}
+	</select>
+	<select id="getWlzwLook" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		SELECT
+		COUNT(*)
+		FROM
+		sale_bills
+		INNER JOIN customer_info ON
+		customer_info.customer_id =
+		sale_bills.customer_id
+		INNER JOIN
+		money_management_table ON sale_bills.sale_bill_id =
+		money_management_table.order_id
+		INNER JOIN system_account ON
+		sale_bills.account_id =
+		system_account.account_id
+		where
+		customer_info.customer_name=#{searchCustomer,jdbcType=VARCHAR}
+	</select>
+	<select id="getLooksAllBills" resultMap="BaseLooksResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		sale_bills.sum,
+		customer_info.customer_name,
+		money_management_table.paid_amount,
+		money_management_table.unpaid_amount,
+		money_management_table.complete_time,
+		sale_bills.sale_bill_id,
+		sale_bills.price,
+		sale_bills.total,
+		system_account.account_name,
+		system_commodity_information.commodity_name
+		FROM
+		sale_bills
+		INNER JOIN
+		customer_info ON customer_info.customer_id =
+		sale_bills.customer_id
+		INNER JOIN money_management_table ON sale_bills.sale_bill_id =
+		money_management_table.order_id
+		INNER JOIN system_account ON
+		sale_bills.account_id =
+		system_account.account_id
+		INNER JOIN
+		system_commodity_information ON sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+		where
+		customer_info.customer_name=#{searchCustomer,jdbcType=VARCHAR}
+	</select>
+	<select id="getLooksAllBillsAs" resultMap="BaseLooksResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		sale_bills.sum,
+		sale_bills.price,
+		sale_bills.total,
+		system_commodity_information.commodity_name,
+		money_management_table.paid_amount,
+		money_management_table.unpaid_amount,
+		money_management_table.complete_time,
+		system_account.account_name,
+		sale_bills.sale_bill_id,
+		customer_info.customer_name
+		FROM
+		sale_bills
+		INNER JOIN system_account ON sale_bills.account_id =
+		system_account.account_id
+		INNER JOIN customer_info ON sale_bills.customer_id =
+		customer_info.customer_id
+		INNER JOIN money_management_table ON customer_info.customer_id =
+		money_management_table.customer_id
+		INNER JOIN system_commodity_information ON sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+		where customer_info.customer_name=#{searchCustomer,jdbcType=VARCHAR}
+	</select>
+	<select id="getSaleGoodsNums" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		SELECT
+		Count(*)
+		FROM
+		sale_bills
+		INNER JOIN
+		money_management_table ON sale_bills.sale_bill_id =
+		money_management_table.order_id
+		INNER JOIN system_account ON
+		sale_bills.account_id =
+		system_account.account_id
+		INNER JOIN
+		system_commodity_information ON sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+		where
+		system_commodity_information.commodity_name=#{searchGoodsName,jdbcType=VARCHAR}
+	</select>
+	<select id="getGoodsSaleParticularsTable"
+		resultMap="BaseLooksResultMap" parameterType="java.util.Map">
+		SELECT
+		system_account.account_name,
+		system_commodity_information.commodity_name,
+		sale_bills.sum,
+		sale_bills.price,
+		customer_info.customer_name,
+		money_management_table.paid_amount,
+		money_management_table.unpaid_amount,
+		sale_bills.sale_bill_id,
+		sale_bills.total,
+		money_management_table.complete_time
+		FROM
+		sale_bills
+		INNER JOIN system_account ON sale_bills.account_id =
+		system_account.account_id
+		INNER JOIN system_commodity_information ON
+		sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+		INNER JOIN customer_info ON sale_bills.customer_id =
+		customer_info.customer_id
+		INNER JOIN money_management_table ON
+		sale_bills.customer_id =
+		money_management_table.customer_id
+		where
+		system_commodity_information.commodity_name
+		=#{searchGoodsName,jdbcType=VARCHAR}
+	</select>
+</mapper>

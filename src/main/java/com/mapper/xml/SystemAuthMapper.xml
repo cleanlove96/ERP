@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.SystemAuthMapper">
+	<resultMap id="BaseResultMap" type="com.model.SystemAuth">
+		<id column="auth_id" jdbcType="VARCHAR" property="authId" />
+		<result column="auth_name" jdbcType="VARCHAR"
+			property="authName" />
+		<result column="auth_href" jdbcType="VARCHAR"
+			property="authHref" />
+		<result column="auth_group_id" jdbcType="VARCHAR"
+			property="authGroupId" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		auth_id, auth_name, auth_href, auth_group_id
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from system_auth
+		where auth_id = #{authId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		system_auth
+		where auth_id = #{authId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.SystemAuth">
+		insert into system_auth
+		(auth_id, auth_name, auth_href,
+		auth_group_id)
+		values
+		(#{authId,jdbcType=VARCHAR}, #{authName,jdbcType=VARCHAR},
+		#{authHref,jdbcType=VARCHAR},
+		#{authGroupId,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.model.SystemAuth">
+		insert into system_auth
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="authId != null">
+				auth_id,
+			</if>
+			<if test="authName != null">
+				auth_name,
+			</if>
+			<if test="authHref != null">
+				auth_href,
+			</if>
+			<if test="authGroupId != null">
+				auth_group_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="authId != null">
+				#{authId,jdbcType=VARCHAR},
+			</if>
+			<if test="authName != null">
+				#{authName,jdbcType=VARCHAR},
+			</if>
+			<if test="authHref != null">
+				#{authHref,jdbcType=VARCHAR},
+			</if>
+			<if test="authGroupId != null">
+				#{authGroupId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.SystemAuth">
+		update system_auth
+		<set>
+			<if test="authName != null">
+				auth_name = #{authName,jdbcType=VARCHAR},
+			</if>
+			<if test="authHref != null">
+				auth_href = #{authHref,jdbcType=VARCHAR},
+			</if>
+			<if test="authGroupId != null">
+				auth_group_id = #{authGroupId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where auth_id = #{authId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.SystemAuth">
+		update system_auth
+		set auth_name =
+		#{authName,jdbcType=VARCHAR},
+		auth_href =
+		#{authHref,jdbcType=VARCHAR},
+		auth_group_id =
+		#{authGroupId,jdbcType=VARCHAR}
+		where auth_id =
+		#{authId,jdbcType=VARCHAR}
+	</update>
+	<select id="selectByAccountIdAndGroupId"
+		parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		system_auth
+		INNER JOIN system_role_auth ON system_role_auth.auth_id =
+		system_auth.auth_id
+		INNER JOIN account_role ON system_role_auth.role_id = account_role.role_id
+		WHERE
+		account_id=#{accountId,jdbcType=VARCHAR}
+		and
+		auth_group_id=#{authGroupId,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByHref" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT * FROM system_auth where auth_href =
+		#{href,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		SELECT * FROM system_auth
+	</select>
+</mapper>

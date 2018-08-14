@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.GoodsOutInStoreMapper">
+	<resultMap id="BaseResultMap"
+		type="com.model.GoodsOutInStore">
+		<id column="goods_out_in_id" property="goodsOutInId"
+			jdbcType="VARCHAR" />
+		<result column="warehouse_id" property="warehouseId"
+			jdbcType="VARCHAR" />
+		<result column="commodity_id" property="commodityId"
+			jdbcType="VARCHAR" />
+		<result column="material_inventory_amount"
+			property="materialInventoryAmount" jdbcType="INTEGER" />
+		<result column="material_inventory_value"
+			property="materialInventoryValue" jdbcType="DOUBLE" />
+		<result column="goods_type" property="goodsType"
+			jdbcType="VARCHAR" />
+		<result column="batch_number" property="batchNumber"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="BaseMap" type="com.pojo.GoodsStore">
+		<id column="goods_out_in_id" property="goodsOutInId"
+			jdbcType="VARCHAR" />
+		<result column="warehouse_id" property="warehouseId"
+			jdbcType="VARCHAR" />
+		<result column="commodity_id" property="commodityId"
+			jdbcType="VARCHAR" />
+		<result column="material_inventory_amount"
+			property="materialInventoryAmount" jdbcType="INTEGER" />
+		<result column="material_inventory_value"
+			property="materialInventoryValue" jdbcType="DOUBLE" />
+		<result column="goods_type" property="goodsType"
+			jdbcType="VARCHAR" />
+		<result column="batch_number" property="batchNumber"
+			jdbcType="VARCHAR" />
+		<result column="commodity_name" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="warehouse_name" property="warehouseName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="costResultMap" type="com.pojo.CostProfitTable">
+		<result column="goodsTotal" property="saleSumTotal"
+			jdbcType="DOUBLE" />
+		 <result column="materialTotal" property="cost" jdbcType="VARCHAR" /> 
+		<!-- <result 
+			column="Profit" property="Profit" jdbcType="VARCHAR" />  -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		goods_out_in_id, warehouse_id, commodity_id,
+		material_inventory_amount,
+		material_inventory_value,
+		goods_type,
+		batch_number, time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from goods_out_in_store
+		where goods_out_in_id =
+		#{goodsOutInId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		goods_out_in_store
+		where goods_out_in_id =
+		#{goodsOutInId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.GoodsOutInStore">
+		insert into goods_out_in_store
+		(goods_out_in_id, warehouse_id,
+		commodity_id,
+		material_inventory_amount, material_inventory_value,
+		goods_type,
+		batch_number, time
+		)
+		values (#{goodsOutInId,jdbcType=VARCHAR},
+		#{warehouseId,jdbcType=VARCHAR},
+		#{commodityId,jdbcType=VARCHAR},
+		#{materialInventoryAmount,jdbcType=INTEGER},
+		#{materialInventoryValue,jdbcType=DOUBLE},
+		#{goodsType,jdbcType=VARCHAR}, #{batchNumber,jdbcType=VARCHAR},
+		#{time,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.model.GoodsOutInStore">
+		insert into goods_out_in_store
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="goodsOutInId != null">
+				goods_out_in_id,
+			</if>
+			<if test="warehouseId != null">
+				warehouse_id,
+			</if>
+			<if test="commodityId != null">
+				commodity_id,
+			</if>
+			<if test="materialInventoryAmount != null">
+				material_inventory_amount,
+			</if>
+			<if test="materialInventoryValue != null">
+				material_inventory_value,
+			</if>
+			<if test="goodsType != null">
+				goods_type,
+			</if>
+			<if test="batchNumber != null">
+				batch_number,
+			</if>
+			<if test="time != null">
+				time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="goodsOutInId != null">
+				#{goodsOutInId,jdbcType=VARCHAR},
+			</if>
+			<if test="warehouseId != null">
+				#{warehouseId,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityId != null">
+				#{commodityId,jdbcType=VARCHAR},
+			</if>
+			<if test="materialInventoryAmount != null">
+				#{materialInventoryAmount,jdbcType=INTEGER},
+			</if>
+			<if test="materialInventoryValue != null">
+				#{materialInventoryValue,jdbcType=DOUBLE},
+			</if>
+			<if test="goodsType != null">
+				#{goodsType,jdbcType=VARCHAR},
+			</if>
+			<if test="batchNumber != null">
+				#{batchNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="time != null">
+				#{time,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.GoodsOutInStore">
+		update goods_out_in_store
+		<set>
+			<if test="warehouseId != null">
+				warehouse_id = #{warehouseId,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityId != null">
+				commodity_id = #{commodityId,jdbcType=VARCHAR},
+			</if>
+			<if test="materialInventoryAmount != null">
+				material_inventory_amount =
+				#{materialInventoryAmount,jdbcType=INTEGER},
+			</if>
+			<if test="materialInventoryValue != null">
+				material_inventory_value =
+				#{materialInventoryValue,jdbcType=DOUBLE},
+			</if>
+			<if test="goodsType != null">
+				goods_type = #{goodsType,jdbcType=VARCHAR},
+			</if>
+			<if test="batchNumber != null">
+				batch_number = #{batchNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="time != null">
+				time = #{time,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where goods_out_in_id = #{goodsOutInId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.GoodsOutInStore">
+		update goods_out_in_store
+		set warehouse_id =
+		#{warehouseId,jdbcType=VARCHAR},
+		commodity_id =
+		#{commodityId,jdbcType=VARCHAR},
+		material_inventory_amount =
+		#{materialInventoryAmount,jdbcType=INTEGER},
+		material_inventory_value =
+		#{materialInventoryValue,jdbcType=DOUBLE},
+		goods_type =
+		#{goodsType,jdbcType=VARCHAR},
+		batch_number =
+		#{batchNumber,jdbcType=VARCHAR},
+		time = #{time,jdbcType=VARCHAR}
+		where
+		goods_out_in_id = #{goodsOutInId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getInfoTable" resultMap="BaseMap">
+		SELECT
+		goods_out_in_store.goods_out_in_id,
+		goods_out_in_store.warehouse_id,
+		goods_out_in_store.commodity_id,
+		goods_out_in_store.material_inventory_amount,
+		goods_out_in_store.material_inventory_value,
+		goods_out_in_store.goods_type,
+		goods_out_in_store.batch_number,
+		goods_out_in_store.time,
+		warehouse.warehouse_name,
+		system_commodity_information.commodity_name
+		FROM
+		goods_out_in_store
+		INNER JOIN system_commodity_information ON goods_out_in_store.commodity_id
+		= system_commodity_information.commodity_id
+		INNER JOIN warehouse ON goods_out_in_store.warehouse_id =
+		warehouse.warehouse_id
+		WHERE goods_out_in_store.time LIKE
+		#{s2,jdbcType=VARCHAR} AND system_commodity_information.commodity_name
+		like #{s,jdbcType=VARCHAR}
+		limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+
+	<select id="getTotalNum" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM
+		goods_out_in_store
+		INNER JOIN system_commodity_information ON
+		goods_out_in_store.commodity_id
+		=
+		system_commodity_information.commodity_id
+
+		WHERE goods_out_in_store.time LIKE
+		#{s2,jdbcType=VARCHAR} AND system_commodity_information.commodity_name like #{s,jdbcType=VARCHAR}
+	</select>
+	<select id="querySaleSumTotal" resultType="java.lang.Double">
+		select
+		sum(material_inventory_value) as goodsTotal from goods_out_in_store
+	</select>
+	<select id="queryCostTotal" resultType="java.lang.Double">
+		select
+		sum(material_inventory_value) as materialTotal from
+		material_out_in_store
+	</select>
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.DateTypeTableMapper">
+	<resultMap id="BaseResultMap" type="com.model.DateTypeTable">
+		<id column="date_type_id" property="dateTypeId" jdbcType="VARCHAR" />
+		<result column="date_type_name" property="dateTypeName"
+			jdbcType="VARCHAR" />
+		<result column="date_type_date" property="dateTypeDate"
+			jdbcType="VARCHAR" />
+		<result column="change_time" property="changeTime"
+			jdbcType="TIMESTAMP" />
+		<result column="date_type_type" property="dateTypeType"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		date_type_id, date_type_name, date_type_date, change_time,
+		date_type_type
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from date_type_table
+		where date_type_id =
+		#{dateTypeId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		date_type_table
+		where date_type_id = #{dateTypeId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.DateTypeTable">
+		insert into date_type_table
+		(date_type_id, date_type_name,
+		date_type_date,
+		change_time,
+		date_type_type)
+		values (#{dateTypeId,jdbcType=VARCHAR},
+		#{dateTypeName,jdbcType=VARCHAR},
+		#{dateTypeDate,jdbcType=VARCHAR},
+		#{changeTime,jdbcType=TIMESTAMP}, #{dateTypeType,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.model.DateTypeTable">
+		insert into date_type_table
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dateTypeId != null">
+				date_type_id,
+			</if>
+			<if test="dateTypeName != null">
+				date_type_name,
+			</if>
+			<if test="dateTypeDate != null">
+				date_type_date,
+			</if>
+			<if test="changeTime != null">
+				change_time,
+			</if>
+			<if test="dateTypeType != null">
+				date_type_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dateTypeId != null">
+				#{dateTypeId,jdbcType=VARCHAR},
+			</if>
+			<if test="dateTypeName != null">
+				#{dateTypeName,jdbcType=VARCHAR},
+			</if>
+			<if test="dateTypeDate != null">
+				#{dateTypeDate,jdbcType=VARCHAR},
+			</if>
+			<if test="changeTime != null">
+				#{changeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dateTypeType != null">
+				#{dateTypeType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.DateTypeTable">
+		update date_type_table
+		<set>
+			<if test="dateTypeName != null">
+				date_type_name = #{dateTypeName,jdbcType=VARCHAR},
+			</if>
+			<if test="dateTypeDate != null">
+				date_type_date = #{dateTypeDate,jdbcType=VARCHAR},
+			</if>
+			<if test="changeTime != null">
+				change_time = #{changeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dateTypeType != null">
+				date_type_type = #{dateTypeType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where date_type_id = #{dateTypeId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.DateTypeTable">
+		update date_type_table
+		set date_type_name =
+		#{dateTypeName,jdbcType=VARCHAR},
+		date_type_date =
+		#{dateTypeDate,jdbcType=VARCHAR},
+		change_time =
+		#{changeTime,jdbcType=TIMESTAMP},
+		date_type_type =
+		#{dateTypeType,jdbcType=VARCHAR}
+		where date_type_id =
+		#{dateTypeId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByType" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		SELECT
+		count(*)
+		FROM
+		date_type_table
+		WHERE
+		date_type_type
+		like #{type,jdbcType=VARCHAR}
+	</select>
+	<select id="selectTableByType" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		date_type_table
+		WHERE
+		date_type_type like #{type,jdbcType=VARCHAR} ORDER
+		BY date_type_date limit #{start,jdbcType=VARCHAR}
+		,#{size,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByDate" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		date_type_table.date_type_id,
+		date_type_table.date_type_name,
+		date_type_table.date_type_date,
+		date_type_table.change_time,
+		date_type_table.date_type_type
+		FROM
+		date_type_table
+		where date_type_date=#{dateTime,jdbcType=VARCHAR}
+	</select>
+</mapper>

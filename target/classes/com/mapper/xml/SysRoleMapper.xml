@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.SysRoleMapper">
+	<resultMap id="BaseResultMap" type="com.model.SysRole">
+		<id column="role_id" property="roleId" jdbcType="VARCHAR" />
+		<result column="role_name" property="roleName"
+			jdbcType="VARCHAR" />
+		<result column="role_desc" property="roleDesc"
+			jdbcType="VARCHAR" />
+		<result column="role_status" property="roleStatus"
+			jdbcType="VARCHAR" />
+	</resultMap>
+		<resultMap id="BaseMap" type="com.pojo.SystemRolePojo">
+		<id column="role_id" property="roleId" jdbcType="VARCHAR" />
+		<result column="role_name" property="roleName"
+			jdbcType="VARCHAR" />
+		<result column="role_desc" property="roleDesc"
+			jdbcType="VARCHAR" />
+		<result column="role_status" property="roleStatus"
+			jdbcType="VARCHAR" />
+		<result column="section_name" property="sectionName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		role_id, role_name, role_desc, role_status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_role
+		where role_id = #{roleId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		sys_role
+		where role_id = #{roleId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.SysRole">
+		insert into sys_role (role_id,
+		role_name, role_desc,
+		role_status)
+		values (#{roleId,jdbcType=VARCHAR},
+		#{roleName,jdbcType=VARCHAR},
+		#{roleDesc,jdbcType=VARCHAR},
+		#{roleStatus,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.model.SysRole">
+		insert into sys_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				role_id,
+			</if>
+			<if test="roleName != null">
+				role_name,
+			</if>
+			<if test="roleDesc != null">
+				role_desc,
+			</if>
+			<if test="roleStatus != null">
+				role_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				#{roleId,jdbcType=VARCHAR},
+			</if>
+			<if test="roleName != null">
+				#{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="roleDesc != null">
+				#{roleDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="roleStatus != null">
+				#{roleStatus,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.SysRole">
+		update sys_role
+		<set>
+			<if test="roleName != null">
+				role_name = #{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="roleDesc != null">
+				role_desc = #{roleDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="roleStatus != null">
+				role_status = #{roleStatus,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where role_id = #{roleId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.SysRole">
+		update sys_role
+		set role_name =
+		#{roleName,jdbcType=VARCHAR},
+		role_desc = #{roleDesc,jdbcType=VARCHAR},
+		role_status = #{roleStatus,jdbcType=VARCHAR}
+		where role_id =
+		#{roleId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectAllRole" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		sys_role.role_name,
+		sys_role.role_id,
+		sys_role.role_desc,
+		sys_role.role_status
+		FROM
+		section_role
+		INNER JOIN
+		section_info ON section_role.section_id =
+		section_info.section_id
+		INNER
+		JOIN sys_role ON section_role.role_id = sys_role.role_id
+		WHERE
+		section_info.section_id=#{sectionInfoId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectAllRoleWithAccount" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		sys_role
+	</select>
+	<select id="selectNameBySalaryId" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		SELECT
+		sys_role.role_name
+		FROM
+		sys_role
+		INNER JOIN
+		salary_scale_table ON sys_role.role_id =
+		salary_scale_table.role_id
+		WHERE salary_scale_id=#{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAccountNameBySalaryId"
+		resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT
+		system_account.account_name
+		FROM
+		individual_salary
+		INNER JOIN system_account ON individual_salary.account_id =
+		system_account.account_id
+		WHERE individual_salary_id=#{id,jdbcType=VARCHAR}
+	</select>
+<select id="getRoleTable" resultMap="BaseMap">
+		SELECT
+		sys_role.role_id,
+		sys_role.role_name,
+		sys_role.role_desc,
+		sys_role.role_status,
+		section_info.section_name
+		FROM
+		sys_role
+		INNER JOIN section_role ON
+		sys_role.role_id = section_role.role_id
+		INNER JOIN section_info ON
+		section_role.section_id = section_info.section_id
+		where role_name LIKE
+		#{s,jdbcType=VARCHAR} limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+
+	<select id="getTotalNum" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM
+		sys_role
+		INNER JOIN section_role ON
+		sys_role.role_id = section_role.role_id
+		INNER JOIN section_info ON
+		section_role.section_id = section_info.section_id
+		where role_name LIKE #{s,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByRoleName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		*
+		from sys_role
+		where role_name =
+		#{sectionName,jdbcType=VARCHAR}
+	</select>
+</mapper>

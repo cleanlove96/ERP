@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.LeaveInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.model.LeaveInfo" >
+    <id column="leave_info_id" property="leaveInfoId" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="leave_info_reason" property="leaveInfoReason" jdbcType="VARCHAR" />
+    <result column="leave_info_type" property="leaveInfoType" jdbcType="VARCHAR" />
+    <result column="leave_info_state" property="leaveInfoState" jdbcType="VARCHAR" />
+    <result column="leave_start_time" property="leaveStartTime" jdbcType="VARCHAR" />
+    <result column="leave_end_time" property="leaveEndTime" jdbcType="VARCHAR" />
+    <result column="leave_create_time" property="leaveCreateTime" jdbcType="TIMESTAMP" />
+    <result column="refuse_reason" property="refuseReason" jdbcType="VARCHAR" />
+    <result column="leave_isread" property="leaveIsread" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    leave_info_id, account_id, leave_info_reason, leave_info_type, leave_info_state, 
+    leave_start_time, leave_end_time, leave_create_time, refuse_reason, leave_isread
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from leave_info
+    where leave_info_id = #{leaveInfoId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from leave_info
+    where leave_info_id = #{leaveInfoId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.LeaveInfo" >
+    insert into leave_info (leave_info_id, account_id, leave_info_reason, 
+      leave_info_type, leave_info_state, leave_start_time, 
+      leave_end_time, leave_create_time, refuse_reason, 
+      leave_isread)
+    values (#{leaveInfoId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{leaveInfoReason,jdbcType=VARCHAR}, 
+      #{leaveInfoType,jdbcType=VARCHAR}, #{leaveInfoState,jdbcType=VARCHAR}, #{leaveStartTime,jdbcType=VARCHAR}, 
+      #{leaveEndTime,jdbcType=VARCHAR}, #{leaveCreateTime,jdbcType=TIMESTAMP}, #{refuseReason,jdbcType=VARCHAR}, 
+      #{leaveIsread,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.LeaveInfo" >
+    insert into leave_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="leaveInfoId != null" >
+        leave_info_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="leaveInfoReason != null" >
+        leave_info_reason,
+      </if>
+      <if test="leaveInfoType != null" >
+        leave_info_type,
+      </if>
+      <if test="leaveInfoState != null" >
+        leave_info_state,
+      </if>
+      <if test="leaveStartTime != null" >
+        leave_start_time,
+      </if>
+      <if test="leaveEndTime != null" >
+        leave_end_time,
+      </if>
+      <if test="leaveCreateTime != null" >
+        leave_create_time,
+      </if>
+      <if test="refuseReason != null" >
+        refuse_reason,
+      </if>
+      <if test="leaveIsread != null" >
+        leave_isread,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="leaveInfoId != null" >
+        #{leaveInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveInfoReason != null" >
+        #{leaveInfoReason,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveInfoType != null" >
+        #{leaveInfoType,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveInfoState != null" >
+        #{leaveInfoState,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveStartTime != null" >
+        #{leaveStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveEndTime != null" >
+        #{leaveEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveCreateTime != null" >
+        #{leaveCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refuseReason != null" >
+        #{refuseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveIsread != null" >
+        #{leaveIsread,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.LeaveInfo" >
+    update leave_info
+    <set >
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveInfoReason != null" >
+        leave_info_reason = #{leaveInfoReason,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveInfoType != null" >
+        leave_info_type = #{leaveInfoType,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveInfoState != null" >
+        leave_info_state = #{leaveInfoState,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveStartTime != null" >
+        leave_start_time = #{leaveStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveEndTime != null" >
+        leave_end_time = #{leaveEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveCreateTime != null" >
+        leave_create_time = #{leaveCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refuseReason != null" >
+        refuse_reason = #{refuseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveIsread != null" >
+        leave_isread = #{leaveIsread,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where leave_info_id = #{leaveInfoId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.LeaveInfo" >
+    update leave_info
+    set account_id = #{accountId,jdbcType=VARCHAR},
+      leave_info_reason = #{leaveInfoReason,jdbcType=VARCHAR},
+      leave_info_type = #{leaveInfoType,jdbcType=VARCHAR},
+      leave_info_state = #{leaveInfoState,jdbcType=VARCHAR},
+      leave_start_time = #{leaveStartTime,jdbcType=VARCHAR},
+      leave_end_time = #{leaveEndTime,jdbcType=VARCHAR},
+      leave_create_time = #{leaveCreateTime,jdbcType=TIMESTAMP},
+      refuse_reason = #{refuseReason,jdbcType=VARCHAR},
+      leave_isread = #{leaveIsread,jdbcType=VARCHAR}
+    where leave_info_id = #{leaveInfoId,jdbcType=VARCHAR}
+  </update>
+  <!-- 请假人查询自己已经审核的假条 -->
+  <select id="queryCompleteLeave" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from leave_info
+    where account_id = #{accountId,jdbcType=VARCHAR} and leave_info_state in('同意','拒绝')
+	limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}  
+  </select>
+  <!-- 请假人查询自己审核之后未读的假条 -->
+  <select id="queryNotRead" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from leave_info
+    where account_id = #{accountId,jdbcType=VARCHAR} and leave_isread = '0'
+   limit  #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <!-- 请假人查询自己未审核的假条 -->
+  <select id="queryNotCompleteLeave" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from leave_info
+    where account_id = #{accountId,jdbcType=VARCHAR} and  leave_info_state = '未审批'
+  	limit  #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <!-- 请假人查询自己审批中的假条 -->
+  <select id="queryWaitCompleteLeave" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from leave_info
+    where account_id = #{accountId,jdbcType=VARCHAR} and  leave_info_state = '审批中'
+  	limit  #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <!-- 审核人查询待审核的假条 -->
+  <select id="queryNotAllLeave" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from leave_info
+    where  account_id not in (#{accountId,jdbcType=VARCHAR}) and leave_info_state not in('同意','拒绝')
+ limit  #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <!-- 审核人查询审核之后的假条 -->
+  <select id="queryApprovalAllLeave" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from leave_info
+    where   leave_info_state  in('同意','拒绝')
+    limit  #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <!-- 审核人查询没有读的假条 -->
+  <select id="queryNotReadAllLeave" resultMap="BaseResultMap"  parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from leave_info
+    where account_id not in (#{accountId,jdbcType=VARCHAR}) and  leave_info_state = '未审批'
+    limit  #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  
+    <!-- 审核人查询审核中的假条数量 -->
+  <select id="queryAllNotCompleteLeaveCount" resultType="java.lang.Integer" parameterType="com.pojo.State" >
+    select 
+    count(*)
+    from leave_info
+    where account_id not in (#{accountId,jdbcType=VARCHAR}) and  leave_info_state not in('同意','拒绝')
+  </select>
+  <!-- 审核人查询已经审核的假条数量 -->
+  <select id="queryAllCompleteLeaveCount" resultType="java.lang.Integer" parameterType="com.pojo.State" >
+    select 
+    count(*)
+    from leave_info
+    where  leave_info_state in('同意','拒绝')
+  </select>
+  <!-- 审核人查询未读的假条数量 -->
+  <select id="queryAllNotReadLeaveCount" resultType="java.lang.Integer" parameterType="com.pojo.State" >
+    select 
+    count(*)
+    from leave_info
+    where account_id not in(#{accountId,jdbcType=VARCHAR}) and leave_info_state = '未审批'
+  </select>
+  
+  
+  
+  
+  <!-- 请假人查询自己审核中的假条数量 -->
+  <select id="queryNotCompleteLeaveCount" resultType="java.lang.Integer" parameterType="com.pojo.State" >
+    select 
+    count(*)
+    from leave_info
+    where account_id = #{accountId,jdbcType=VARCHAR} and  leave_info_state = #{leaveInfoState,jdbcType=VARCHAR}
+  </select>
+  <!-- 请假人查询自己已经审核的假条数量 -->
+  <select id="queryCompleteLeaveCount" resultType="java.lang.Integer" parameterType="com.pojo.State" >
+    select 
+    count(*)
+    from leave_info
+    where account_id = #{accountId,jdbcType=VARCHAR} and leave_info_state in('同意','拒绝')
+  </select>
+  <!-- 请假人查询自己审核之后未读的假条数量 -->
+  <select id="queryNotReadLeaveCount" resultType="java.lang.Integer" parameterType="com.pojo.State" >
+    select 
+    count(*)
+    from leave_info
+    where account_id = #{accountId,jdbcType=VARCHAR} and leave_isread = '0'
+  </select>
+  <!-- 请假人查看了未读消息后修改已读状态 -->
+  <update id="updateIsState" parameterType="java.lang.String" >
+    update leave_info
+    set 
+      leave_isread = '1'
+    where leave_info_id = #{leaveInfoId,jdbcType=VARCHAR}
+  </update>
+  <!-- 假条审核人查看了未审批假条后修改审批状态 -->
+  <update id="updateState" parameterType="java.lang.String" >
+    update leave_info
+    set 
+      leave_info_state = '审批中'
+    where leave_info_id = #{leaveInfoId,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.SystemAccountRoleMapper">
+  <resultMap id="BaseResultMap" type="com.model.SystemAccountRole">
+    <id column="account_role_id" jdbcType="VARCHAR" property="accountRoleId" />
+    <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    account_role_id, account_id, role_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from system_account_role
+    where account_role_id = #{accountRoleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from system_account_role
+    where account_role_id = #{accountRoleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.SystemAccountRole">
+    insert into system_account_role (account_role_id, account_id, role_id
+      )
+    values (#{accountRoleId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.SystemAccountRole">
+    insert into system_account_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="accountRoleId != null">
+        account_role_id,
+      </if>
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="accountRoleId != null">
+        #{accountRoleId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.SystemAccountRole">
+    update system_account_role
+    <set>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where account_role_id = #{accountRoleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.SystemAccountRole">
+    update system_account_role
+    set account_id = #{accountId,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=VARCHAR}
+    where account_role_id = #{accountRoleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

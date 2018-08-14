@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.materialLogMapper" >
+  <resultMap id="BaseResultMap" type="com.model.materialLog" >
+    <result column="sys_material_log_id" property="sysMaterialLogId" jdbcType="VARCHAR" />
+    <result column="account_login_id" property="accountLoginId" jdbcType="VARCHAR" />
+    <result column="material_log_date" property="materialLogDate" jdbcType="VARCHAR" />
+    <result column="material_log_type" property="materialLogType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sys_material_log_id, account_login_id, material_log_date, material_log_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.materialLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from material_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.model.materialLogExample" >
+    delete from material_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.materialLog" >
+    insert into material_log (sys_material_log_id, account_login_id, 
+      material_log_date, material_log_type)
+    values (#{sysMaterialLogId,jdbcType=VARCHAR}, #{accountLoginId,jdbcType=VARCHAR}, 
+      #{materialLogDate,jdbcType=VARCHAR}, #{materialLogType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.materialLog" >
+    insert into material_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysMaterialLogId != null" >
+        sys_material_log_id,
+      </if>
+      <if test="accountLoginId != null" >
+        account_login_id,
+      </if>
+      <if test="materialLogDate != null" >
+        material_log_date,
+      </if>
+      <if test="materialLogType != null" >
+        material_log_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysMaterialLogId != null" >
+        #{sysMaterialLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountLoginId != null" >
+        #{accountLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialLogDate != null" >
+        #{materialLogDate,jdbcType=VARCHAR},
+      </if>
+      <if test="materialLogType != null" >
+        #{materialLogType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.materialLogExample" resultType="java.lang.Integer" >
+    select count(*) from material_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update material_log
+    <set >
+      <if test="record.sysMaterialLogId != null" >
+        sys_material_log_id = #{record.sysMaterialLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountLoginId != null" >
+        account_login_id = #{record.accountLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialLogDate != null" >
+        material_log_date = #{record.materialLogDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialLogType != null" >
+        material_log_type = #{record.materialLogType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update material_log
+    set sys_material_log_id = #{record.sysMaterialLogId,jdbcType=VARCHAR},
+      account_login_id = #{record.accountLoginId,jdbcType=VARCHAR},
+      material_log_date = #{record.materialLogDate,jdbcType=VARCHAR},
+      material_log_type = #{record.materialLogType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

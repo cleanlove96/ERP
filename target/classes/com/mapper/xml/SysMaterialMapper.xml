@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.SysMaterialMapper" >
+  <resultMap id="BaseResultMap" type="com.model.SysMaterial" >
+    <id column="material_id" property="materialId" jdbcType="VARCHAR" />
+    <result column="material_name" property="materialName" jdbcType="VARCHAR" />
+    <result column="material_unit" property="materialUnit" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="material_status" property="materialStatus" jdbcType="VARCHAR" />
+    <result column="material_create_time" property="materialCreateTime" jdbcType="VARCHAR" />
+    <result column="material_update_time" property="materialUpdateTime" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    material_id, material_name, material_unit, price, material_status, material_create_time, 
+    material_update_time, customer_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_material
+    where material_id = #{materialId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_material
+    where material_id = #{materialId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.SysMaterial" >
+    insert into sys_material (material_id, material_name, material_unit, 
+      price, material_status, material_create_time, 
+      material_update_time, customer_id)
+    values (#{materialId,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR}, #{materialUnit,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{materialStatus,jdbcType=VARCHAR}, #{materialCreateTime,jdbcType=VARCHAR}, 
+      #{materialUpdateTime,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.SysMaterial" >
+    insert into sys_material
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="materialId != null" >
+        material_id,
+      </if>
+      <if test="materialName != null" >
+        material_name,
+      </if>
+      <if test="materialUnit != null" >
+        material_unit,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="materialStatus != null" >
+        material_status,
+      </if>
+      <if test="materialCreateTime != null" >
+        material_create_time,
+      </if>
+      <if test="materialUpdateTime != null" >
+        material_update_time,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="materialId != null" >
+        #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialUnit != null" >
+        #{materialUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="materialStatus != null" >
+        #{materialStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCreateTime != null" >
+        #{materialCreateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="materialUpdateTime != null" >
+        #{materialUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.SysMaterial" >
+    update sys_material
+    <set >
+      <if test="materialName != null" >
+        material_name = #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialUnit != null" >
+        material_unit = #{materialUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="materialStatus != null" >
+        material_status = #{materialStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCreateTime != null" >
+        material_create_time = #{materialCreateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="materialUpdateTime != null" >
+        material_update_time = #{materialUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where material_id = #{materialId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.SysMaterial" >
+    update sys_material
+    set material_name = #{materialName,jdbcType=VARCHAR},
+      material_unit = #{materialUnit,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      material_status = #{materialStatus,jdbcType=VARCHAR},
+      material_create_time = #{materialCreateTime,jdbcType=VARCHAR},
+      material_update_time = #{materialUpdateTime,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR}
+    where material_id = #{materialId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryAllsysMaterial" resultMap="BaseResultMap">
+		SELECT * from
+		sys_material
+	</select>
+	<select id="getTotalNum" resultType="java.lang.Integer">
+		SELECT count(*) FROM
+		sys_material where material_name like #{size,jdbcType=VARCHAR}
+	</select>
+	<select id="getMaterialTable" resultMap="BaseResultMap">
+		SELECT * FROM
+		sys_material where material_name like #{search,jdbcType=VARCHAR} limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>	
+	<update id="updateBySysMaterialId"
+		parameterType="com.model.SysMaterial">
+		UPDATE sys_material SET
+		material_name = #{materialName,jdbcType=VARCHAR},
+		material_unit =	#{materialUnit,jdbcType=VARCHAR},
+		price = #{price,jdbcType=DOUBLE},
+		material_update_time =#{materialUpdateTime,jdbcType=VARCHAR},
+		customer_id =#{customerId,jdbcType=VARCHAR}		
+		where
+		material_id =
+		#{materialId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateBySysMaterialStatus"
+		parameterType="com.model.SysMaterial">
+		UPDATE sys_material SET		
+		material_status =#{materialStatus,jdbcType=VARCHAR}		
+		where
+		material_id =
+		#{materialId,jdbcType=VARCHAR}
+	</update>
+	<select id="selectByPrimaryName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT * from sys_material WHERE material_name=#{materialName,jdbcType=VARCHAR}
+	</select>
+	<select id="getMaterialTables" resultMap="BaseResultMap">
+		SELECT 
+		sys_material.material_id,
+		sys_material.material_name,
+		sys_material.material_unit,
+		sys_material.price,
+		sys_material.material_status,
+		sys_material.material_create_time,
+		sys_material.material_update_time,
+		customer_info.customer_name as 'customer_id'
+		FROM
+		sys_material
+		INNER JOIN customer_info ON sys_material.customer_id = customer_info.customer_id
+		where material_name like #{search,jdbcType=VARCHAR} limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+	<select id="selectSysMaterialAll" resultMap="BaseResultMap">
+		SELECT * FROM
+		sys_material where material_status ='0';
+	</select>
+</mapper>

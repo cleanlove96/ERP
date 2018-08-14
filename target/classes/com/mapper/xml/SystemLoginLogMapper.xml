@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.SystemLoginLogMapper">
+  <resultMap id="BaseResultMap" type="com.model.SystemLoginLog">
+    <id column="login_log_id" jdbcType="VARCHAR" property="loginLogId" />
+    <result column="account_login_id" jdbcType="VARCHAR" property="accountLoginId" />
+    <result column="login_log_date" jdbcType="VARCHAR" property="loginLogDate" />
+    <result column="login_log_type" jdbcType="VARCHAR" property="loginLogType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    login_log_id, account_login_id, login_log_date, login_log_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from system_login_log
+    where login_log_id = #{loginLogId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from system_login_log
+    where login_log_id = #{loginLogId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.SystemLoginLog">
+    insert into system_login_log (login_log_id, account_login_id, login_log_date, 
+      login_log_type)
+    values (#{loginLogId,jdbcType=VARCHAR}, #{accountLoginId,jdbcType=VARCHAR}, #{loginLogDate,jdbcType=VARCHAR}, 
+      #{loginLogType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.SystemLoginLog">
+    insert into system_login_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="loginLogId != null">
+        login_log_id,
+      </if>
+      <if test="accountLoginId != null">
+        account_login_id,
+      </if>
+      <if test="loginLogDate != null">
+        login_log_date,
+      </if>
+      <if test="loginLogType != null">
+        login_log_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="loginLogId != null">
+        #{loginLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountLoginId != null">
+        #{accountLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginLogDate != null">
+        #{loginLogDate,jdbcType=VARCHAR},
+      </if>
+      <if test="loginLogType != null">
+        #{loginLogType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.SystemLoginLog">
+    update system_login_log
+    <set>
+      <if test="accountLoginId != null">
+        account_login_id = #{accountLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginLogDate != null">
+        login_log_date = #{loginLogDate,jdbcType=VARCHAR},
+      </if>
+      <if test="loginLogType != null">
+        login_log_type = #{loginLogType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where login_log_id = #{loginLogId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.SystemLoginLog">
+    update system_login_log
+    set account_login_id = #{accountLoginId,jdbcType=VARCHAR},
+      login_log_date = #{loginLogDate,jdbcType=VARCHAR},
+      login_log_type = #{loginLogType,jdbcType=VARCHAR}
+    where login_log_id = #{loginLogId,jdbcType=VARCHAR}
+  </update>
+</mapper>

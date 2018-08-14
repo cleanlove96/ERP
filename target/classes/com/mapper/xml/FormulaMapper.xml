@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.FormulaMapper" >
+  <resultMap id="BaseResultMap" type="com.model.Formula" >
+    <id column="formula_id" property="formulaId" jdbcType="VARCHAR" />
+    <result column="commodity_id" property="commodityId" jdbcType="VARCHAR" />
+    <result column="material_id" property="materialId" jdbcType="VARCHAR" />
+    <result column="formula_count" property="formulaCount" jdbcType="INTEGER" />
+    <result column="formula_create_time" property="formulaCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="FormResultMap" type="com.pojo.FormulaTable" >
+    <id column="formula_id" property="formulaId" jdbcType="VARCHAR" />
+    <result column="commodity_id" property="commodityId" jdbcType="VARCHAR" />
+    <result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+    <result column="material_id" property="materialId" jdbcType="VARCHAR" />
+    <result column="material_name" property="materialName" jdbcType="VARCHAR" />
+    <result column="formula_count" property="formulaCount" jdbcType="INTEGER" />
+    <result column="formula_create_time" property="formulaCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    formula_id, commodity_id, material_id, formula_count, formula_create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from formula
+    where formula_id = #{formulaId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from formula
+    where formula_id = #{formulaId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.Formula" >
+    insert into formula (formula_id, commodity_id, material_id, 
+      formula_count, formula_create_time)
+    values (#{formulaId,jdbcType=VARCHAR}, #{commodityId,jdbcType=VARCHAR}, #{materialId,jdbcType=VARCHAR}, 
+      #{formulaCount,jdbcType=INTEGER}, #{formulaCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Formula" >
+    insert into formula
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="formulaId != null" >
+        formula_id,
+      </if>
+      <if test="commodityId != null" >
+        commodity_id,
+      </if>
+      <if test="materialId != null" >
+        material_id,
+      </if>
+      <if test="formulaCount != null" >
+        formula_count,
+      </if>
+      <if test="formulaCreateTime != null" >
+        formula_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="formulaId != null" >
+        #{formulaId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityId != null" >
+        #{commodityId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialId != null" >
+        #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="formulaCount != null" >
+        #{formulaCount,jdbcType=INTEGER},
+      </if>
+      <if test="formulaCreateTime != null" >
+        #{formulaCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Formula" >
+    update formula
+    <set >
+      <if test="commodityId != null" >
+        commodity_id = #{commodityId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialId != null" >
+        material_id = #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="formulaCount != null" >
+        formula_count = #{formulaCount,jdbcType=INTEGER},
+      </if>
+      <if test="formulaCreateTime != null" >
+        formula_create_time = #{formulaCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where formula_id = #{formulaId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Formula" >
+    update formula
+    set commodity_id = #{commodityId,jdbcType=VARCHAR},
+      material_id = #{materialId,jdbcType=VARCHAR},
+      formula_count = #{formulaCount,jdbcType=INTEGER},
+      formula_create_time = #{formulaCreateTime,jdbcType=TIMESTAMP}
+    where formula_id = #{formulaId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selsectMaterialIdByCommodityId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from formula
+    where commodity_id = #{commodityId,jdbcType=VARCHAR}
+  </select>
+
+  
+  <select id="getFormulaNum" resultType="int" parameterType="java.lang.String" >
+    select 
+    	count(*)
+   FROM
+	formula
+	INNER JOIN system_commodity_information ON formula.commodity_id = system_commodity_information.commodity_id
+	INNER JOIN sys_material ON formula.material_id = sys_material.material_id
+	    where (sys_material.material_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%') 
+	    or system_commodity_information.commodity_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+	     or formula.formula_count like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+	      ) 
+  </select>
+  <select id="selectLike" resultMap="FormResultMap"  >
+    select 
+    	formula.formula_id,
+		formula.commodity_id,
+		system_commodity_information.commodity_name,
+		formula.material_id,
+		sys_material.material_name,
+		formula.formula_count,
+		formula.formula_create_time
+	   FROM
+		formula
+		INNER JOIN system_commodity_information ON formula.commodity_id = system_commodity_information.commodity_id
+		INNER JOIN sys_material ON formula.material_id = sys_material.material_id
+		    where (sys_material.material_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%') 
+		    or system_commodity_information.commodity_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		     or formula.formula_count like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		      ) 
+		ORDER BY  formula.formula_create_time 
+      limit #{start},#{numPerPage}
+  </select>
+
+  
+  <select id="getComId" resultType="com.pojo.FormulaList">
+    SELECT
+	DISTINCT formula.commodity_id  as commodityId,
+	system_commodity_information.commodity_name as commodityName
+	FROM
+	formula
+		INNER JOIN system_commodity_information ON formula.commodity_id = system_commodity_information.commodity_id
+		INNER JOIN sys_material ON formula.material_id = sys_material.material_id
+		    where (sys_material.material_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%') 
+		    or system_commodity_information.commodity_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		     or formula.formula_count like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		      ) 
+		ORDER BY  formula.formula_create_time 
+      limit #{start},#{numPerPage}
+  </select>
+  
+  <select id="getComIdNum" resultType="int">
+    SELECT
+	COUNT(DISTINCT formula.commodity_id)
+	FROM
+	formula
+		INNER JOIN system_commodity_information ON formula.commodity_id = system_commodity_information.commodity_id
+		INNER JOIN sys_material ON formula.material_id = sys_material.material_id
+		    where (sys_material.material_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%') 
+		    or system_commodity_information.commodity_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		     or formula.formula_count like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		      )
+	
+  </select>
+  
+  <select id="getDataByComId" resultMap="FormResultMap"  parameterType="java.lang.String">
+    select 
+    	formula.formula_id,
+		formula.commodity_id,
+		system_commodity_information.commodity_name,
+		formula.material_id,
+		sys_material.material_name,
+		formula.formula_count,
+		formula.formula_create_time
+	   FROM
+		formula
+		INNER JOIN system_commodity_information ON formula.commodity_id = system_commodity_information.commodity_id
+		INNER JOIN sys_material ON formula.material_id = sys_material.material_id
+		where formula.commodity_id=#{commodityId,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

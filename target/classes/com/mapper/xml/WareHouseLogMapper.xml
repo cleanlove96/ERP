@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.WareHouseLogMapper" >
+  <resultMap id="BaseResultMap" type="com.model.WareHouseLog" >
+    <id column="warehouse_log_id" property="warehouseLogId" jdbcType="VARCHAR" />
+    <result column="account_login_id" property="accountLoginId" jdbcType="VARCHAR" />
+    <result column="op_date" property="opDate" jdbcType="VARCHAR" />
+    <result column="op_type" property="opType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    warehouse_log_id, account_login_id, op_date, op_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from warehouse_log
+    where warehouse_log_id = #{warehouseLogId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from warehouse_log
+    where warehouse_log_id = #{warehouseLogId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.WareHouseLog" >
+    insert into warehouse_log (warehouse_log_id, account_login_id, op_date, 
+      op_type)
+    values (#{warehouseLogId,jdbcType=VARCHAR}, #{accountLoginId,jdbcType=VARCHAR}, #{opDate,jdbcType=VARCHAR}, 
+      #{opType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.WareHouseLog" >
+    insert into warehouse_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="warehouseLogId != null" >
+        warehouse_log_id,
+      </if>
+      <if test="accountLoginId != null" >
+        account_login_id,
+      </if>
+      <if test="opDate != null" >
+        op_date,
+      </if>
+      <if test="opType != null" >
+        op_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="warehouseLogId != null" >
+        #{warehouseLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountLoginId != null" >
+        #{accountLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="opDate != null" >
+        #{opDate,jdbcType=VARCHAR},
+      </if>
+      <if test="opType != null" >
+        #{opType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.WareHouseLog" >
+    update warehouse_log
+    <set >
+      <if test="accountLoginId != null" >
+        account_login_id = #{accountLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="opDate != null" >
+        op_date = #{opDate,jdbcType=VARCHAR},
+      </if>
+      <if test="opType != null" >
+        op_type = #{opType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where warehouse_log_id = #{warehouseLogId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.WareHouseLog" >
+    update warehouse_log
+    set account_login_id = #{accountLoginId,jdbcType=VARCHAR},
+      op_date = #{opDate,jdbcType=VARCHAR},
+      op_type = #{opType,jdbcType=VARCHAR}
+    where warehouse_log_id = #{warehouseLogId,jdbcType=VARCHAR}
+  </update>
+</mapper>

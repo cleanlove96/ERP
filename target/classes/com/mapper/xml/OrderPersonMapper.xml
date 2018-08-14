@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.OrderPersonMapper">
+	<resultMap id="BaseResultMap" type="com.model.OrderPerson">
+		<id column="order_person_id" property="orderPersonId"
+			jdbcType="VARCHAR" />
+		<result column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<result column="account_id" property="accountId"
+			jdbcType="VARCHAR" />
+		<result column="purchase_id" property="purchaseId"
+			jdbcType="VARCHAR" />
+		<result column="rop_id" property="ropId" jdbcType="VARCHAR" />
+		<result column="business" property="business"
+			jdbcType="VARCHAR" />
+		<result column="order_person_time" property="orderPersonTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="BaseMap" type="com.pojo.GoodsStoragePojo">
+		<id column="rop_id" property="ropId" jdbcType="VARCHAR" />
+		<result column="rop_unit" property="ropUnit" jdbcType="INTEGER" />
+		<result column="rop_loss" property="ropLoss" jdbcType="INTEGER" />
+		<result column="commodity_name" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="business" property="business"
+			jdbcType="VARCHAR" />
+		<result column="batch_number" property="batchNumber"
+			jdbcType="VARCHAR" />
+		<result column="commodity_id" property="commodityId"
+			jdbcType="VARCHAR" />
+		<result column="commodty_price" property="commodtyPrice"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="BaseTwoMap"
+		type="com.pojo.MaterialStoragePojo">
+		<id column="purchase_id" property="purchaseId" jdbcType="VARCHAR" />
+		<result column="material_id" property="materialId"
+			jdbcType="VARCHAR" />
+		<result column="purchase_table_int" property="purchaseTableInt"
+			jdbcType="INTEGER" />
+		<result column="purchase_table_time"
+			property="purchaseTableTime" jdbcType="VARCHAR" />
+		<result column="extend_prices" property="extendPrices"
+			jdbcType="VARCHAR" />
+		<result column="material_name" property="materialName"
+			jdbcType="VARCHAR" />
+		<result column="business" property="business"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		order_person_id, order_id, account_id, purchase_id, rop_id,
+		business,
+		order_person_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from order_person
+		where order_person_id =
+		#{orderPersonId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		order_person
+		where order_person_id = #{orderPersonId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.OrderPerson">
+		insert into order_person
+		(order_person_id, order_id, account_id,
+		purchase_id, rop_id, business,
+		order_person_time)
+		values (#{orderPersonId,jdbcType=VARCHAR},
+		#{orderId,jdbcType=VARCHAR},
+		#{accountId,jdbcType=VARCHAR},
+		#{purchaseId,jdbcType=VARCHAR}, #{ropId,jdbcType=VARCHAR},
+		#{business,jdbcType=VARCHAR},
+		#{orderPersonTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.model.OrderPerson">
+		insert into order_person
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderPersonId != null">
+				order_person_id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="accountId != null">
+				account_id,
+			</if>
+			<if test="purchaseId != null">
+				purchase_id,
+			</if>
+			<if test="ropId != null">
+				rop_id,
+			</if>
+			<if test="business != null">
+				business,
+			</if>
+			<if test="orderPersonTime != null">
+				order_person_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderPersonId != null">
+				#{orderPersonId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="accountId != null">
+				#{accountId,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseId != null">
+				#{purchaseId,jdbcType=VARCHAR},
+			</if>
+			<if test="ropId != null">
+				#{ropId,jdbcType=VARCHAR},
+			</if>
+			<if test="business != null">
+				#{business,jdbcType=VARCHAR},
+			</if>
+			<if test="orderPersonTime != null">
+				#{orderPersonTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.OrderPerson">
+		update order_person
+		<set>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="accountId != null">
+				account_id = #{accountId,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseId != null">
+				purchase_id = #{purchaseId,jdbcType=VARCHAR},
+			</if>
+			<if test="ropId != null">
+				rop_id = #{ropId,jdbcType=VARCHAR},
+			</if>
+			<if test="business != null">
+				business = #{business,jdbcType=VARCHAR},
+			</if>
+			<if test="orderPersonTime != null">
+				order_person_time =
+				#{orderPersonTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where order_person_id = #{orderPersonId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.OrderPerson">
+		update order_person
+		set order_id =
+		#{orderId,jdbcType=VARCHAR},
+		account_id =
+		#{accountId,jdbcType=VARCHAR},
+		purchase_id =
+		#{purchaseId,jdbcType=VARCHAR},
+		rop_id = #{ropId,jdbcType=VARCHAR},
+		business = #{business,jdbcType=VARCHAR},
+		order_person_time =
+		#{orderPersonTime,jdbcType=TIMESTAMP}
+		where order_person_id =
+		#{orderPersonId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getInfoTable" resultMap="BaseMap">
+		SELECT
+		rop_table.rop_unit,
+		rop_table.rop_loss,
+		rop_table.batch_number,
+		rop_table.rop_id,
+		order_person.business,
+		system_commodity_information.commodity_name,
+		system_commodity_information.commodity_id,
+		system_commodity_information.commodty_price
+		FROM
+		order_person
+		INNER JOIN
+		rop_table ON order_person.rop_id = rop_table.rop_id
+		INNER JOIN
+		system_commodity_information ON rop_table.commodity_id =
+		system_commodity_information.commodity_id
+		group by order_person.rop_id
+		HAVING Count(order_person.rop_id)=3 and
+		commodity_name
+		like
+		#{s,jdbcType=VARCHAR} limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+
+	<select id="getTotalNum" resultMap="BaseMap">
+		SELECT
+		rop_table.rop_unit,
+		rop_table.rop_loss,
+		rop_table.batch_number,
+		rop_table.rop_id,
+		order_person.business,
+		system_commodity_information.commodity_name,
+		system_commodity_information.commodity_id,
+		system_commodity_information.commodty_price
+		FROM
+		order_person
+		INNER JOIN
+		rop_table ON order_person.rop_id = rop_table.rop_id
+		INNER JOIN
+		system_commodity_information ON rop_table.commodity_id =
+		system_commodity_information.commodity_id
+		group by order_person.rop_id
+		HAVING Count(order_person.rop_id)=3 and
+		commodity_name like
+		#{s,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByRopIdBusiness">
+		delete from order_person
+		where rop_id =
+		#{ropId,jdbcType=VARCHAR} and business =
+		#{business,jdbcType=VARCHAR}
+	</delete>
+
+	<select id="getMaterial" resultMap="BaseTwoMap">
+		SELECT
+		order_person.purchase_id,
+		purchase_table.material_id,
+		purchase_table.purchase_table_int,
+		purchase_table.purchase_table_time,
+		purchase_extend.extend_prices,
+		sys_material.material_name,
+		order_person.business
+		FROM
+		order_person
+		INNER JOIN purchase_table ON
+		order_person.purchase_id
+		=
+		purchase_table.purchase_table_id
+		INNER JOIN
+		purchase_extend ON
+		purchase_table.extend_id =
+		purchase_extend.extend_id
+		INNER JOIN
+		sys_material ON purchase_table.material_id =
+		sys_material.material_id
+		group by order_person.purchase_id
+		HAVING
+		business = '采购完成' and Count(order_person.purchase_id)=1
+		and
+		sys_material.material_name like
+		#{s,jdbcType=VARCHAR} limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+
+	<select id="getNum" resultMap="BaseTwoMap">
+		SELECT
+		order_person.purchase_id,
+		purchase_table.material_id,
+		purchase_table.purchase_table_int,
+		purchase_table.purchase_table_time,
+		purchase_extend.extend_prices,
+		sys_material.material_name,
+		order_person.business
+		FROM
+		order_person
+		INNER
+		JOIN purchase_table ON order_person.purchase_id
+		=
+		purchase_table.purchase_table_id
+		INNER JOIN purchase_extend ON
+		purchase_table.extend_id =
+		purchase_extend.extend_id
+		INNER JOIN
+		sys_material ON purchase_table.material_id =
+		sys_material.material_id
+		group by order_person.purchase_id
+		HAVING business = '采购完成' and
+		Count(order_person.purchase_id)=1
+		and sys_material.material_name like
+		#{s,jdbcType=VARCHAR}
+	</select>
+	
+		<select id="selectByRopId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		*
+		from order_person
+		where rop_id = #{ropId,jdbcType=VARCHAR} and business = '出库完成'
+	</select>
+  
+  <select id="selectNameByTableId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		*
+		from order_person
+		where purchase_id =
+		#{purchaseTableId,jdbcType=VARCHAR}
+	</select>
+</mapper>

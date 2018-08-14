@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.PayrollTableMapper">
+	<resultMap id="BaseResultMap" type="com.model.PayrollTable">
+		<id column="payroll_id" property="payrollId" jdbcType="VARCHAR" />
+		<result column="account_id" property="accountId"
+			jdbcType="VARCHAR" />
+		<result column="account_num" property="accountNum"
+			jdbcType="VARCHAR" />
+		<result column="account_name" property="accountName"
+			jdbcType="VARCHAR" />
+		<result column="salary" property="salary" jdbcType="DOUBLE" />
+		<result column="over_base" property="overBase"
+			jdbcType="DOUBLE" />
+		<result column="use_tax_rate" property="useTaxRate"
+			jdbcType="DOUBLE" />
+		<result column="quick_deduct" property="quickDeduct"
+			jdbcType="DOUBLE" />
+		<result column="yanglao_self" property="yanglaoSelf"
+			jdbcType="DOUBLE" />
+		<result column="yanglao_company" property="yanglaoCompany"
+			jdbcType="DOUBLE" />
+		<result column="yiliao_self" property="yiliaoSelf"
+			jdbcType="DOUBLE" />
+		<result column="yiliao_company" property="yiliaoCompany"
+			jdbcType="DOUBLE" />
+		<result column="shengyu_self" property="shengyuSelf"
+			jdbcType="DOUBLE" />
+		<result column="shengyu_company" property="shengyuCompany"
+			jdbcType="DOUBLE" />
+		<result column="shiye_self" property="shiyeSelf"
+			jdbcType="DOUBLE" />
+		<result column="shiye_company" property="shiyeCompany"
+			jdbcType="DOUBLE" />
+		<result column="gongshang_self" property="gongshangSelf"
+			jdbcType="DOUBLE" />
+		<result column="gongshang_company" property="gongshangCompany"
+			jdbcType="DOUBLE" />
+		<result column="house_fund_self" property="houseFundSelf"
+			jdbcType="DOUBLE" />
+		<result column="house_fund_company" property="houseFundCompany"
+			jdbcType="DOUBLE" />
+		<result column="pay_money" property="payMoney"
+			jdbcType="DOUBLE" />
+		<result column="overtime_pay" property="overtimePay"
+			jdbcType="DOUBLE" />
+		<result column="vacate_deduct" property="vacateDeduct"
+			jdbcType="DOUBLE" />
+		<result column="finally_pay" property="finallyPay"
+			jdbcType="DOUBLE" />
+		<result column="close_account_time" property="closeAccountTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		payroll_id, account_id, account_num, account_name, salary, over_base,
+		use_tax_rate,
+		quick_deduct, yanglao_self, yanglao_company, yiliao_self, yiliao_company,
+		shengyu_self,
+		shengyu_company, shiye_self, shiye_company, gongshang_self, gongshang_company,
+		house_fund_self,
+		house_fund_company, pay_money, overtime_pay, vacate_deduct, finally_pay,
+		close_account_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from payroll_table
+		where payroll_id = #{payrollId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from payroll_table
+		where payroll_id = #{payrollId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.PayrollTable">
+		insert into payroll_table (payroll_id, account_id, account_num,
+		account_name, salary, over_base,
+		use_tax_rate, quick_deduct, yanglao_self,
+		yanglao_company, yiliao_self, yiliao_company,
+		shengyu_self, shengyu_company, shiye_self,
+		shiye_company, gongshang_self, gongshang_company,
+		house_fund_self, house_fund_company, pay_money,
+		overtime_pay, vacate_deduct, finally_pay,
+		close_account_time)
+		values (#{payrollId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR},
+		#{accountNum,jdbcType=VARCHAR},
+		#{accountName,jdbcType=VARCHAR}, #{salary,jdbcType=DOUBLE}, #{overBase,jdbcType=DOUBLE},
+		#{useTaxRate,jdbcType=DOUBLE}, #{quickDeduct,jdbcType=DOUBLE},
+		#{yanglaoSelf,jdbcType=DOUBLE},
+		#{yanglaoCompany,jdbcType=DOUBLE}, #{yiliaoSelf,jdbcType=DOUBLE}, #{yiliaoCompany,jdbcType=DOUBLE},
+		#{shengyuSelf,jdbcType=DOUBLE}, #{shengyuCompany,jdbcType=DOUBLE},
+		#{shiyeSelf,jdbcType=DOUBLE},
+		#{shiyeCompany,jdbcType=DOUBLE}, #{gongshangSelf,jdbcType=DOUBLE},
+		#{gongshangCompany,jdbcType=DOUBLE},
+		#{houseFundSelf,jdbcType=DOUBLE}, #{houseFundCompany,jdbcType=DOUBLE}, #{payMoney,jdbcType=DOUBLE},
+		#{overtimePay,jdbcType=DOUBLE}, #{vacateDeduct,jdbcType=DOUBLE},
+		#{finallyPay,jdbcType=DOUBLE},
+		#{closeAccountTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.model.PayrollTable">
+		insert into payroll_table
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="payrollId != null">
+				payroll_id,
+			</if>
+			<if test="accountId != null">
+				account_id,
+			</if>
+			<if test="accountNum != null">
+				account_num,
+			</if>
+			<if test="accountName != null">
+				account_name,
+			</if>
+			<if test="salary != null">
+				salary,
+			</if>
+			<if test="overBase != null">
+				over_base,
+			</if>
+			<if test="useTaxRate != null">
+				use_tax_rate,
+			</if>
+			<if test="quickDeduct != null">
+				quick_deduct,
+			</if>
+			<if test="yanglaoSelf != null">
+				yanglao_self,
+			</if>
+			<if test="yanglaoCompany != null">
+				yanglao_company,
+			</if>
+			<if test="yiliaoSelf != null">
+				yiliao_self,
+			</if>
+			<if test="yiliaoCompany != null">
+				yiliao_company,
+			</if>
+			<if test="shengyuSelf != null">
+				shengyu_self,
+			</if>
+			<if test="shengyuCompany != null">
+				shengyu_company,
+			</if>
+			<if test="shiyeSelf != null">
+				shiye_self,
+			</if>
+			<if test="shiyeCompany != null">
+				shiye_company,
+			</if>
+			<if test="gongshangSelf != null">
+				gongshang_self,
+			</if>
+			<if test="gongshangCompany != null">
+				gongshang_company,
+			</if>
+			<if test="houseFundSelf != null">
+				house_fund_self,
+			</if>
+			<if test="houseFundCompany != null">
+				house_fund_company,
+			</if>
+			<if test="payMoney != null">
+				pay_money,
+			</if>
+			<if test="overtimePay != null">
+				overtime_pay,
+			</if>
+			<if test="vacateDeduct != null">
+				vacate_deduct,
+			</if>
+			<if test="finallyPay != null">
+				finally_pay,
+			</if>
+			<if test="closeAccountTime != null">
+				close_account_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="payrollId != null">
+				#{payrollId,jdbcType=VARCHAR},
+			</if>
+			<if test="accountId != null">
+				#{accountId,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNum != null">
+				#{accountNum,jdbcType=VARCHAR},
+			</if>
+			<if test="accountName != null">
+				#{accountName,jdbcType=VARCHAR},
+			</if>
+			<if test="salary != null">
+				#{salary,jdbcType=DOUBLE},
+			</if>
+			<if test="overBase != null">
+				#{overBase,jdbcType=DOUBLE},
+			</if>
+			<if test="useTaxRate != null">
+				#{useTaxRate,jdbcType=DOUBLE},
+			</if>
+			<if test="quickDeduct != null">
+				#{quickDeduct,jdbcType=DOUBLE},
+			</if>
+			<if test="yanglaoSelf != null">
+				#{yanglaoSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="yanglaoCompany != null">
+				#{yanglaoCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="yiliaoSelf != null">
+				#{yiliaoSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="yiliaoCompany != null">
+				#{yiliaoCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="shengyuSelf != null">
+				#{shengyuSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="shengyuCompany != null">
+				#{shengyuCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="shiyeSelf != null">
+				#{shiyeSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="shiyeCompany != null">
+				#{shiyeCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="gongshangSelf != null">
+				#{gongshangSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="gongshangCompany != null">
+				#{gongshangCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="houseFundSelf != null">
+				#{houseFundSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="houseFundCompany != null">
+				#{houseFundCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="payMoney != null">
+				#{payMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="overtimePay != null">
+				#{overtimePay,jdbcType=DOUBLE},
+			</if>
+			<if test="vacateDeduct != null">
+				#{vacateDeduct,jdbcType=DOUBLE},
+			</if>
+			<if test="finallyPay != null">
+				#{finallyPay,jdbcType=DOUBLE},
+			</if>
+			<if test="closeAccountTime != null">
+				#{closeAccountTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.PayrollTable">
+		update payroll_table
+		<set>
+			<if test="accountId != null">
+				account_id = #{accountId,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNum != null">
+				account_num = #{accountNum,jdbcType=VARCHAR},
+			</if>
+			<if test="accountName != null">
+				account_name = #{accountName,jdbcType=VARCHAR},
+			</if>
+			<if test="salary != null">
+				salary = #{salary,jdbcType=DOUBLE},
+			</if>
+			<if test="overBase != null">
+				over_base = #{overBase,jdbcType=DOUBLE},
+			</if>
+			<if test="useTaxRate != null">
+				use_tax_rate = #{useTaxRate,jdbcType=DOUBLE},
+			</if>
+			<if test="quickDeduct != null">
+				quick_deduct = #{quickDeduct,jdbcType=DOUBLE},
+			</if>
+			<if test="yanglaoSelf != null">
+				yanglao_self = #{yanglaoSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="yanglaoCompany != null">
+				yanglao_company = #{yanglaoCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="yiliaoSelf != null">
+				yiliao_self = #{yiliaoSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="yiliaoCompany != null">
+				yiliao_company = #{yiliaoCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="shengyuSelf != null">
+				shengyu_self = #{shengyuSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="shengyuCompany != null">
+				shengyu_company = #{shengyuCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="shiyeSelf != null">
+				shiye_self = #{shiyeSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="shiyeCompany != null">
+				shiye_company = #{shiyeCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="gongshangSelf != null">
+				gongshang_self = #{gongshangSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="gongshangCompany != null">
+				gongshang_company = #{gongshangCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="houseFundSelf != null">
+				house_fund_self = #{houseFundSelf,jdbcType=DOUBLE},
+			</if>
+			<if test="houseFundCompany != null">
+				house_fund_company = #{houseFundCompany,jdbcType=DOUBLE},
+			</if>
+			<if test="payMoney != null">
+				pay_money = #{payMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="overtimePay != null">
+				overtime_pay = #{overtimePay,jdbcType=DOUBLE},
+			</if>
+			<if test="vacateDeduct != null">
+				vacate_deduct = #{vacateDeduct,jdbcType=DOUBLE},
+			</if>
+			<if test="finallyPay != null">
+				finally_pay = #{finallyPay,jdbcType=DOUBLE},
+			</if>
+			<if test="closeAccountTime != null">
+				close_account_time = #{closeAccountTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where payroll_id = #{payrollId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.PayrollTable">
+		update payroll_table
+		set account_id = #{accountId,jdbcType=VARCHAR},
+		account_num = #{accountNum,jdbcType=VARCHAR},
+		account_name = #{accountName,jdbcType=VARCHAR},
+		salary = #{salary,jdbcType=DOUBLE},
+		over_base = #{overBase,jdbcType=DOUBLE},
+		use_tax_rate = #{useTaxRate,jdbcType=DOUBLE},
+		quick_deduct = #{quickDeduct,jdbcType=DOUBLE},
+		yanglao_self = #{yanglaoSelf,jdbcType=DOUBLE},
+		yanglao_company = #{yanglaoCompany,jdbcType=DOUBLE},
+		yiliao_self = #{yiliaoSelf,jdbcType=DOUBLE},
+		yiliao_company = #{yiliaoCompany,jdbcType=DOUBLE},
+		shengyu_self = #{shengyuSelf,jdbcType=DOUBLE},
+		shengyu_company = #{shengyuCompany,jdbcType=DOUBLE},
+		shiye_self = #{shiyeSelf,jdbcType=DOUBLE},
+		shiye_company = #{shiyeCompany,jdbcType=DOUBLE},
+		gongshang_self = #{gongshangSelf,jdbcType=DOUBLE},
+		gongshang_company = #{gongshangCompany,jdbcType=DOUBLE},
+		house_fund_self = #{houseFundSelf,jdbcType=DOUBLE},
+		house_fund_company = #{houseFundCompany,jdbcType=DOUBLE},
+		pay_money = #{payMoney,jdbcType=DOUBLE},
+		overtime_pay = #{overtimePay,jdbcType=DOUBLE},
+		vacate_deduct = #{vacateDeduct,jdbcType=DOUBLE},
+		finally_pay = #{finallyPay,jdbcType=DOUBLE},
+		close_account_time = #{closeAccountTime,jdbcType=TIMESTAMP}
+		where payroll_id = #{payrollId,jdbcType=VARCHAR}
+	</update>
+	<select id="isLiquidation" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM
+		payroll_table
+		WHERE use_tax_rate=#{state,jdbcType=VARCHAR} and close_account_time BETWEEN #{start,jdbcType=VARCHAR} and
+		#{end,jdbcType=VARCHAR}
+	</select>
+</mapper>

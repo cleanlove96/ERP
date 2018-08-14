@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.SystemAccountMapper">
+	<resultMap id="BaseResultMap" type="com.model.SystemAccount">
+		<id column="account_id" jdbcType="VARCHAR" property="accountId" />
+		<result column="account_login_id" jdbcType="VARCHAR"
+			property="accountLoginId" />
+		<result column="account_login_pwd" jdbcType="VARCHAR"
+			property="accountLoginPwd" />
+		<result column="account_name" jdbcType="VARCHAR"
+			property="accountName" />
+		<result column="account_num" jdbcType="VARCHAR"
+			property="accountNum" />
+		<result column="account_phone" jdbcType="VARCHAR"
+			property="accountPhone" />
+		<result column="account_entry_date" jdbcType="VARCHAR"
+			property="accountEntryDate" />
+		<result column="account_status" jdbcType="VARCHAR"
+			property="accountStatus" />
+		<result column="account_sex" jdbcType="VARCHAR"
+			property="accountSex" />
+		<result column="account_location" jdbcType="VARCHAR"
+			property="accountLocation" />
+		<result column="account_edu_level" jdbcType="VARCHAR"
+			property="accountEduLevel" />
+		<result column="account_idcard" jdbcType="VARCHAR"
+			property="accountIdcard" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		account_id, account_login_id, account_login_pwd,
+		account_name, account_num,
+		account_phone,
+		account_entry_date,
+		account_status, account_sex, account_location, account_edu_level,
+		account_idcard
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from system_account
+		where account_id = #{accountId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		system_account
+		where account_id = #{accountId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.SystemAccount">
+		insert into system_account
+		(account_id, account_login_id, account_login_pwd,
+		account_name,
+		account_num, account_phone,
+		account_entry_date, account_status,
+		account_sex,
+		account_location, account_edu_level, account_idcard
+		)
+		values (#{accountId,jdbcType=VARCHAR},
+		#{accountLoginId,jdbcType=VARCHAR},
+		#{accountLoginPwd,jdbcType=VARCHAR},
+		#{accountName,jdbcType=VARCHAR},
+		#{accountNum,jdbcType=VARCHAR}, #{accountPhone,jdbcType=VARCHAR},
+		#{accountEntryDate,jdbcType=VARCHAR},
+		#{accountStatus,jdbcType=VARCHAR}, #{accountSex,jdbcType=VARCHAR},
+		#{accountLocation,jdbcType=VARCHAR},
+		#{accountEduLevel,jdbcType=VARCHAR}, #{accountIdcard,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.model.SystemAccount">
+		insert into system_account
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="accountId != null">
+				account_id,
+			</if>
+			<if test="accountLoginId != null">
+				account_login_id,
+			</if>
+			<if test="accountLoginPwd != null">
+				account_login_pwd,
+			</if>
+			<if test="accountName != null">
+				account_name,
+			</if>
+			<if test="accountNum != null">
+				account_num,
+			</if>
+			<if test="accountPhone != null">
+				account_phone,
+			</if>
+			<if test="accountEntryDate != null">
+				account_entry_date,
+			</if>
+			<if test="accountStatus != null">
+				account_status,
+			</if>
+			<if test="accountSex != null">
+				account_sex,
+			</if>
+			<if test="accountLocation != null">
+				account_location,
+			</if>
+			<if test="accountEduLevel != null">
+				account_edu_level,
+			</if>
+			<if test="accountIdcard != null">
+				account_idcard,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="accountId != null">
+				#{accountId,jdbcType=VARCHAR},
+			</if>
+			<if test="accountLoginId != null">
+				#{accountLoginId,jdbcType=VARCHAR},
+			</if>
+			<if test="accountLoginPwd != null">
+				#{accountLoginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountName != null">
+				#{accountName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNum != null">
+				#{accountNum,jdbcType=VARCHAR},
+			</if>
+			<if test="accountPhone != null">
+				#{accountPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="accountEntryDate != null">
+				#{accountEntryDate,jdbcType=VARCHAR},
+			</if>
+			<if test="accountStatus != null">
+				#{accountStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="accountSex != null">
+				#{accountSex,jdbcType=VARCHAR},
+			</if>
+			<if test="accountLocation != null">
+				#{accountLocation,jdbcType=VARCHAR},
+			</if>
+			<if test="accountEduLevel != null">
+				#{accountEduLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="accountIdcard != null">
+				#{accountIdcard,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.SystemAccount">
+		update system_account
+		<set>
+			<if test="accountLoginId != null">
+				account_login_id = #{accountLoginId,jdbcType=VARCHAR},
+			</if>
+			<if test="accountLoginPwd != null">
+				account_login_pwd = #{accountLoginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountName != null">
+				account_name = #{accountName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNum != null">
+				account_num = #{accountNum,jdbcType=VARCHAR},
+			</if>
+			<if test="accountPhone != null">
+				account_phone = #{accountPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="accountEntryDate != null">
+				account_entry_date =
+				#{accountEntryDate,jdbcType=VARCHAR},
+			</if>
+			<if test="accountStatus != null">
+				account_status = #{accountStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="accountSex != null">
+				account_sex = #{accountSex,jdbcType=VARCHAR},
+			</if>
+			<if test="accountLocation != null">
+				account_location = #{accountLocation,jdbcType=VARCHAR},
+			</if>
+			<if test="accountEduLevel != null">
+				account_edu_level = #{accountEduLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="accountIdcard != null">
+				account_idcard = #{accountIdcard,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where account_id = #{accountId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.SystemAccount">
+		update
+		system_account
+		set account_login_id =
+		#{accountLoginId,jdbcType=VARCHAR},
+		account_login_pwd =
+		#{accountLoginPwd,jdbcType=VARCHAR},
+		account_name =
+		#{accountName,jdbcType=VARCHAR},
+		account_num =
+		#{accountNum,jdbcType=VARCHAR},
+		account_phone =
+		#{accountPhone,jdbcType=VARCHAR},
+		account_entry_date =
+		#{accountEntryDate,jdbcType=VARCHAR},
+		account_status =
+		#{accountStatus,jdbcType=VARCHAR},
+		account_sex =
+		#{accountSex,jdbcType=VARCHAR},
+		account_location =
+		#{accountLocation,jdbcType=VARCHAR},
+		account_edu_level =
+		#{accountEduLevel,jdbcType=VARCHAR},
+		account_idcard =
+		#{accountIdcard,jdbcType=VARCHAR}
+		where account_id =
+		#{accountId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByLoginId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT * FROM system_account where account_login_id =
+		#{loginId,jdbcType=VARCHAR}
+	</select>
+	<select id="getAccountTable" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM system_account where account_login_id like
+		#{searchCard,jdbcType=VARCHAR}
+		or account_name like
+		#{searchCard,jdbcType=VARCHAR} or account_sex like
+		#{searchCard,jdbcType=VARCHAR} or account_phone like
+		#{searchCard,jdbcType=VARCHAR} or account_location like
+		#{searchCard,jdbcType=VARCHAR} or account_edu_level like
+		#{searchCard,jdbcType=VARCHAR} or account_idcard like
+		#{searchCard,jdbcType=VARCHAR} or account_entry_date like
+		#{searchCard,jdbcType=VARCHAR} or account_status like
+		#{searchCard,jdbcType=VARCHAR}
+		limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+	<select id="selectCount" resultType="java.lang.Integer">
+		SELECT
+		count(*) FROM
+		system_account where account_login_id like
+		#{searchCard,jdbcType=VARCHAR}
+		or account_name like
+		#{searchCard,jdbcType=VARCHAR} or account_sex like
+		#{searchCard,jdbcType=VARCHAR} or account_phone like
+		#{searchCard,jdbcType=VARCHAR} or account_location like
+		#{searchCard,jdbcType=VARCHAR} or account_edu_level like
+		#{searchCard,jdbcType=VARCHAR} or account_idcard like
+		#{searchCard,jdbcType=VARCHAR} or account_entry_date like
+		#{searchCard,jdbcType=VARCHAR} or account_status like
+		#{searchCard,jdbcType=VARCHAR}
+	</select>
+	<update id="updateStatusByAccountId"
+		parameterType="java.util.Map">
+		update
+		system_account
+		set
+		account_status =
+		#{accountStatus,jdbcType=VARCHAR}
+		where account_id =
+		#{accountId,jdbcType=VARCHAR}
+	</update>
+	<update id="resetPwdByAccountId" parameterType="java.lang.String">
+		update
+		system_account
+		set
+		account_login_pwd ="000000"
+		where
+		account_id =
+		#{accountId,jdbcType=VARCHAR}
+	</update>
+
+
+	<select id="selectByRoleId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT
+		system_account.account_id,
+		system_account.account_login_id,
+		system_account.account_login_pwd,
+		system_account.account_name,
+		system_account.account_num,
+		system_account.account_phone,
+		system_account.account_entry_date,
+		system_account.account_status,
+		system_account.account_sex,
+		system_account.account_location,
+		system_account.account_edu_level,
+		system_account.account_idcard
+		FROM
+		sys_role
+		INNER JOIN account_role ON
+		sys_role.role_id = account_role.role_id
+		INNER JOIN system_account ON
+		account_role.account_id =
+		system_account.account_id
+		where
+		sys_role.role_id=#{roleId,jdbcType=VARCHAR}
+	</select>
+
+
+	<select id="getAllAccountByRole" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+		system_account.account_name,
+		system_account.account_id
+		FROM
+		system_account
+		INNER JOIN account_role ON account_role.account_id =
+		system_account.account_id
+		INNER JOIN sys_role ON sys_role.role_id =
+		account_role.role_id
+		WHERE sys_role.role_id=#{roleId,jdbcType=VARCHAR}
+	</select>
+
+
+	<update id="updateNewPasswordByAccountId"
+		parameterType="java.util.Map">
+		update
+		system_account
+		set
+		account_login_pwd =
+		#{accountLoginPwd,jdbcType=VARCHAR}
+		where account_id =
+		#{accountId,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateMyAccount" parameterType="java.util.Map">
+		update
+		system_account
+		set
+		account_phone =
+		#{accountPhone,jdbcType=VARCHAR},
+		account_location =
+		#{accountLocation,jdbcType=VARCHAR},
+		account_idcard =
+		#{accountIdcard,jdbcType=VARCHAR}
+		where account_id =
+		#{accountId,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePidAndId" parameterType="java.util.Map">
+		UPDATE account_role
+		SET role_id=#{pId,jdbcType=VARCHAR} WHERE
+		account_id=#{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectBySectionWorkTime" resultMap="BaseResultMap">
+		SELECT DISTINCT
+		system_account.account_id,
+		system_account.account_name,
+		system_account.account_num
+		FROM
+		workday_record
+		INNER JOIN account_role ON workday_record.account_id =
+		account_role.account_id
+		INNER JOIN section_role ON account_role.role_id = section_role.role_id
+		INNER JOIN section_info ON section_role.section_id =
+		section_info.section_id
+		INNER JOIN system_account ON workday_record.account_id =
+		system_account.account_id
+		where punch_time BETWEEN #{start,jdbcType=VARCHAR} and #{end,jdbcType=VARCHAR}and
+		section_info.section_id=#{sectionId,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAllWorkTime" resultMap="BaseResultMap">
+		SELECT DISTINCT
+		system_account.account_id,
+		system_account.account_name,
+		system_account.account_num
+		FROM
+		workday_record
+		INNER JOIN account_role ON workday_record.account_id =
+		account_role.account_id
+		INNER JOIN section_role ON account_role.role_id = section_role.role_id
+		INNER JOIN section_info ON section_role.section_id =
+		section_info.section_id
+		INNER JOIN system_account ON workday_record.account_id =
+		system_account.account_id
+		where punch_time BETWEEN #{start,jdbcType=VARCHAR} and #{end,jdbcType=VARCHAR}
+	</select>
+</mapper>

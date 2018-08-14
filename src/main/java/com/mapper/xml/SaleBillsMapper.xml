@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.SaleBillsMapper">
+
+	<resultMap id="BaseResultMap" type="com.model.SaleBills">
+		<id column="sale_bill_id" property="saleBillId" jdbcType="VARCHAR" />
+		<result column="receipt_id" property="receiptId"
+			jdbcType="VARCHAR" />
+		<result column="customer_id" property="customerId"
+			jdbcType="VARCHAR" />
+		<result column="sale_time" property="saleTime"
+			jdbcType="VARCHAR" />
+		<result column="account_id" property="accountId"
+			jdbcType="VARCHAR" />
+		<result column="commodity_id" property="commodityId"
+			jdbcType="VARCHAR" />
+		<result column="sum" property="sum" jdbcType="INTEGER" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="total" property="total" jdbcType="DOUBLE" />
+		<result column="sale_total" property="saleTotal"
+			jdbcType="DOUBLE" />
+	</resultMap>
+	<resultMap id="SaleSelectResultMap"
+		type="com.model.SaleSelectResult">
+		<result column="customer_name" property="customerName"
+			jdbcType="VARCHAR" />
+		<result column="sale_time" property="saleTime"
+			jdbcType="VARCHAR" />
+		<result column="account_name" property="accountName"
+			jdbcType="VARCHAR" />
+		<result column="commodity_name" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="sum" property="sum" jdbcType="INTEGER" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="total" property="total" jdbcType="DOUBLE" />
+		<result column="sale_total" property="saleTotal"
+			jdbcType="DOUBLE" />
+		<result column="receipt_id" property="receiptId"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="CustomerResultMap"
+		type="com.model.CustomerInfo">
+		<id column="customer_id" property="customerId" jdbcType="VARCHAR" />
+		<result column="customer_name" property="customerName"
+			jdbcType="VARCHAR" />
+		<result column="customer_tel" property="customerTel"
+			jdbcType="VARCHAR" />
+		<result column="customer_addr" property="customerAddr"
+			jdbcType="VARCHAR" />
+		<result column="customer_demand" property="customerDemand"
+			jdbcType="VARCHAR" />
+		<result column="customer_company" property="customerCompany"
+			jdbcType="VARCHAR" />
+		<result column="customer_qq" property="customerQq"
+			jdbcType="VARCHAR" />
+		<result column="customer_sex" property="customerSex"
+			jdbcType="VARCHAR" />
+		<result column="customer_email" property="customerEmail"
+			jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime"
+			jdbcType="DATE" />
+		<result column="customer_status" property="customerStatus"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="AccountResultMap"
+		type="com.model.SystemAccount">
+		<id column="account_id" jdbcType="VARCHAR" property="accountId" />
+		<result column="account_login_id" jdbcType="VARCHAR"
+			property="accountLoginId" />
+		<result column="account_login_pwd" jdbcType="VARCHAR"
+			property="accountLoginPwd" />
+		<result column="account_name" jdbcType="VARCHAR"
+			property="accountName" />
+		<result column="account_num" jdbcType="VARCHAR"
+			property="accountNum" />
+		<result column="account_phone" jdbcType="VARCHAR"
+			property="accountPhone" />
+		<result column="account_entry_date" jdbcType="VARCHAR"
+			property="accountEntryDate" />
+		<result column="account_status" jdbcType="VARCHAR"
+			property="accountStatus" />
+		<result column="account_sex" jdbcType="VARCHAR"
+			property="accountSex" />
+		<result column="account_location" jdbcType="VARCHAR"
+			property="accountLocation" />
+		<result column="account_edu_level" jdbcType="VARCHAR"
+			property="accountEduLevel" />
+		<result column="account_idcard" jdbcType="VARCHAR"
+			property="accountIdcard" />
+	</resultMap>
+	<resultMap id="CommodityResultMap"
+		type="com.model.SystemCommodityInformation">
+		<id column="commodity_id" property="commodityId" jdbcType="VARCHAR" />
+		<result column="commodity_name" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="commodity_specification"
+			property="commoditySpecification" jdbcType="VARCHAR" />
+		<result column="commodity_place" property="commodityPlace"
+			jdbcType="VARCHAR" />
+		<result column="commodtyl_type" property="commodtylType"
+			jdbcType="VARCHAR" />
+		<result column="commodty_brand" property="commodtyBrand"
+			jdbcType="VARCHAR" />
+		<result column="commodty_degrees" property="commodtyDegrees"
+			jdbcType="VARCHAR" />
+		<result column="commodty_recipe" property="commodtyRecipe"
+			jdbcType="VARCHAR" />
+		<result column="commodty_expiration_date"
+			property="commodtyExpirationDate" jdbcType="VARCHAR" />
+		<result column="commodty_odor_type" property="commodtyOdorType"
+			jdbcType="VARCHAR" />
+		<result column="commodty_price" property="commodtyPrice"
+			jdbcType="DOUBLE" />
+		<result column="commodty_status" property="commodtyStatus"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="SaleBillsDetailResult"
+		type="com.model.SaleBillsDetailResult">
+		<result column="commodity_name" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="sum" property="amount" jdbcType="DOUBLE" />
+		<result column="price" property="price" jdbcType="VARCHAR" />
+		<result column="total" property="total" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="BaseSaleBillDetailResultMap"
+		type="com.pojo.SaleBillDetail">
+		<id column="sale_bill_id" property="saleBillId" jdbcType="VARCHAR" />
+		<result column="customer_name" property="customerName"
+			jdbcType="VARCHAR" />
+		<result column="sale_time" property="saleTime"
+			jdbcType="VARCHAR" />
+		<result column="account_name" property="accountName"
+			jdbcType="VARCHAR" />
+		<result column="commodity_name" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="sum" property="sum" jdbcType="INTEGER" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="total" property="total" jdbcType="DOUBLE" />
+	</resultMap>
+	<resultMap id="BaseSaleCblrResultMap"
+		type="com.pojo.ChenBenLiRun">
+		<id column="sale_bill_id" property="saleBillId" jdbcType="VARCHAR" />
+		<result column="customer_name" property="customerName"
+			jdbcType="VARCHAR" />
+		<result column="sale_time" property="saleTime"
+			jdbcType="VARCHAR" />
+		<result column="account_name" property="accountName"
+			jdbcType="VARCHAR" />
+		<result column="commodity_name" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="commodity_id" property="commodityId"
+			jdbcType="VARCHAR" />
+		<result column="sum" property="sum" jdbcType="INTEGER" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="total" property="total" jdbcType="DOUBLE" />
+		<result column="capital" property="capital" jdbcType="DOUBLE" />
+		<result column="profit" property="profit" jdbcType="DOUBLE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sale_bill_id, customer_id, sale_time, account_id,
+		commodity_id, sum, price, total,
+		sale_total
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sale_bills
+		where sale_bill_id = #{saleBillId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		sale_bills
+		where sale_bill_id = #{saleBillId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.SaleBills">
+		insert into sale_bills
+		(sale_bill_id, customer_id, sale_time,
+		account_id, commodity_id, sum,
+		price, total, sale_total
+		)
+		values (#{saleBillId,jdbcType=VARCHAR},
+		#{customerId,jdbcType=VARCHAR},
+		#{saleTime,jdbcType=VARCHAR},
+		#{accountId,jdbcType=VARCHAR}, #{commodityId,jdbcType=VARCHAR},
+		#{sum,jdbcType=INTEGER},
+		#{price,jdbcType=DOUBLE},
+		#{total,jdbcType=DOUBLE},
+		#{saleTotal,jdbcType=DOUBLE}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.model.SaleBills">
+		insert into sale_bills
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="saleBillId != null">
+				sale_bill_id,
+			</if>
+			<if test="customerId != null">
+				customer_id,
+			</if>
+			<if test="saleTime != null">
+				sale_time,
+			</if>
+			<if test="accountId != null">
+				account_id,
+			</if>
+			<if test="commodityId != null">
+				commodity_id,
+			</if>
+			<if test="sum != null">
+				sum,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="total != null">
+				total,
+			</if>
+			<if test="payTotal != null">
+				sale_total,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="saleBillId != null">
+				#{saleBillId,jdbcType=VARCHAR},
+			</if>
+			<if test="customerId != null">
+				#{customerId,jdbcType=VARCHAR},
+			</if>
+			<if test="saleTime != null">
+				#{saleTime,jdbcType=VARCHAR},
+			</if>
+			<if test="accountId != null">
+				#{accountId,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityId != null">
+				#{commodityId,jdbcType=VARCHAR},
+			</if>
+			<if test="sum != null">
+				#{sum,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DOUBLE},
+			</if>
+			<if test="total != null">
+				#{total,jdbcType=DOUBLE},
+			</if>
+			<if test="payTotal != null">
+				#{saleTotal,jdbcType=DOUBLE},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.SaleBills">
+		update sale_bills
+		set customer_id =
+		#{customerId,jdbcType=VARCHAR},
+		sale_time =
+		#{saleTime,jdbcType=VARCHAR},
+		account_id =
+		#{accountId,jdbcType=VARCHAR},
+		commodity_id =
+		#{commodityId,jdbcType=VARCHAR},
+		sum = #{sum,jdbcType=INTEGER},
+		price =
+		#{price,jdbcType=DOUBLE},
+		total = #{total,jdbcType=DOUBLE},
+		sale_total =
+		#{payTotal,jdbcType=DOUBLE}
+		where sale_bill_id =
+		#{saleBillId,jdbcType=VARCHAR}
+	</update>
+	<select id="getAllSaleBillDetail"
+		resultMap="BaseSaleBillDetailResultMap">
+		SELECT
+		sale_bills.sale_time,
+		sale_bills.sum,
+		sale_bills.price,
+		sale_bills.total,
+		customer_info.customer_name,
+		system_account.account_name,
+		system_commodity_information.commodity_name,
+		sale_bills.sale_bill_id
+		FROM
+		sale_bills
+		INNER JOIN customer_info ON sale_bills.customer_id =
+		customer_info.customer_id
+		INNER JOIN system_account ON
+		sale_bills.account_id =
+		system_account.account_id
+		INNER JOIN
+		system_commodity_information ON sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+	</select>
+	<select id="getTotalNum" resultType="java.lang.Integer">
+		SELECT
+		Count(*)
+		FROM
+		sale_bills
+		INNER JOIN customer_info ON sale_bills.customer_id =
+		customer_info.customer_id
+		INNER JOIN system_account ON
+		sale_bills.account_id =
+		system_account.account_id
+		INNER JOIN
+		system_commodity_information ON sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+		WHERE
+		customer_info.customer_name LIKE #{search,jdbcType=VARCHAR}
+	</select>
+	<select id="getAllGoodsTjBillsAs"
+		resultMap="BaseSaleBillDetailResultMap" parameterType="java.util.Map">
+		SELECT
+		system_account.account_name,
+		system_commodity_information.commodity_name,
+		customer_info.customer_name,
+		sale_bills.sale_time,
+		sale_bills.sale_bill_id,
+		sum(sale_bills.sum) as sum,
+		sale_bills.price,
+		sum(sale_bills.total) as total
+		FROM
+		sale_bills
+		INNER JOIN customer_info
+		ON
+		sale_bills.customer_id =
+		customer_info.customer_id
+		INNER JOIN
+		system_commodity_information ON sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+		INNER JOIN system_account ON
+		sale_bills.account_id =
+		system_account.account_id
+		WHERE
+		customer_info.customer_name LIKE #{searchCustomer,jdbcType=VARCHAR}
+		and
+		system_commodity_information.commodity_name like
+		#{searchGoodsName,jdbcType=VARCHAR} or
+		sale_bills.sale_time
+		BETWEEN
+		#{searchTimeStart,jdbcType=VARCHAR}
+		and
+		#{searchTimeEnd,jdbcType=VARCHAR} GROUP BY
+		system_commodity_information.commodity_id limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+	<select id="getAllGoodsTjSum" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		SELECT
+		COUNT(*)
+		FROM
+		sale_bills
+		INNER JOIN
+		customer_info ON
+		sale_bills.customer_id =
+		customer_info.customer_id
+		INNER JOIN
+		system_commodity_information ON
+		sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+		INNER JOIN system_account ON
+		sale_bills.account_id =
+		system_account.account_id AND
+		sale_bills.account_id =
+		system_account.account_id
+		where
+		system_commodity_information.commodity_name
+		LIKE
+		#{searchGoodsName,jdbcType=VARCHAR} AND customer_info.customer_name
+		LIKE #{searchCustomer,jdbcType=VARCHAR} or sale_bills.sale_time
+		BETWEEN #{searchTimeStart,jdbcType=VARCHAR}
+		and
+		#{searchTimeEnd,jdbcType=VARCHAR}
+	</select>
+	<select id="getCBLRSum" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		SELECT
+		COUNT(*)
+		FROM
+		sale_bills
+		INNER JOIN
+		system_commodity_information ON sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+		INNER JOIN system_account ON
+		sale_bills.account_id =
+		system_account.account_id
+		INNER JOIN
+		customer_info ON sale_bills.customer_id =
+		customer_info.customer_id
+	</select>
+	<select id="getAllGoodsId" resultMap="BaseSaleCblrResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		sale_bills.sale_bill_id,
+		sale_bills.sum,
+		sale_bills.price,
+		sale_bills.total,
+		system_commodity_information.commodity_name,
+		system_account.account_name,
+		customer_info.customer_name,
+		sale_bills.sale_time,
+		system_commodity_information.commodity_id
+		FROM
+		sale_bills
+		INNER JOIN system_commodity_information ON
+		sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+		INNER JOIN system_account ON sale_bills.account_id =
+		system_account.account_id
+		INNER JOIN customer_info ON
+		sale_bills.customer_id =
+		customer_info.customer_id LIMIT
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+	<select id="getAllGoodsCB" resultMap="BaseSaleCblrResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		Sum(formula.formula_count * price) AS capital,
+		formula.commodity_id
+		FROM
+		formula
+		INNER JOIN sys_material ON
+		formula.material_id = sys_material.material_id
+		INNER JOIN
+		system_commodity_information ON formula.commodity_id =
+		system_commodity_information.commodity_id
+		WHERE
+		system_commodity_information.commodity_id=#{commodityId,jdbcType=VARCHAR}
+	</select>
+	<select id="selectSale" resultMap="SaleSelectResultMap">
+		SELECT
+		sale_bills.sale_time,
+		sale_bills.receipt_id,
+		sale_bills.sum,
+		sale_bills.price,
+		sale_bills.total,
+		sale_bills.sale_total,
+		customer_info.customer_name,
+		system_account.account_name,
+		system_commodity_information.commodity_name
+		FROM
+		sale_bills
+		INNER JOIN
+		customer_info ON sale_bills.customer_id =
+		customer_info.customer_id
+		INNER JOIN system_commodity_information ON sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+		INNER JOIN system_account ON
+		sale_bills.account_id =
+		system_account.account_id
+		where
+		customer_info.customer_name like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%') limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+	<select id="selectPageCount" resultType="java.lang.Integer">
+		select count(*)
+		from
+		sale_bills
+		INNER JOIN customer_info ON sale_bills.customer_id =
+		customer_info.customer_id
+		where customer_info.customer_name like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+	</select>
+	<select id="selectCustomerName" resultMap="CustomerResultMap">
+		select * from
+		customer_info
+	</select>
+	<select id="selectAccountName" resultMap="AccountResultMap">
+		select * from
+		system_account
+	</select>
+	<select id="selectCommodityName" resultMap="CommodityResultMap">
+		select * from
+		system_commodity_information
+	</select>
+	<insert id="insertSale">
+		insert into sale_bills (sale_bill_id, receipt_id,
+		customer_id, sale_time,
+		account_id, commodity_id, sum,
+		price, total,
+		sale_total
+		)
+		values (#{id,jdbcType=VARCHAR},
+		#{receipts,jdbcType=VARCHAR},
+		#{customerId,jdbcType=VARCHAR},
+		#{saleTime,jdbcType=VARCHAR},
+		#{accountId,jdbcType=VARCHAR},
+		#{commodityId,jdbcType=VARCHAR},
+		#{amount,jdbcType=INTEGER},
+		#{UnitPrice,jdbcType=DOUBLE}, #{totalPrice,jdbcType=DOUBLE},
+		#{salePrice,jdbcType=DOUBLE}
+		)
+	</insert>
+	<select id="selectDetailsByReceipts"
+		resultMap="SaleBillsDetailResult">
+		SELECT
+		sale_bills.sum,
+		sale_bills.price,
+		sale_bills.total,
+		system_commodity_information.commodity_name
+		FROM
+		sale_bills
+		INNER JOIN
+		system_commodity_information ON sale_bills.commodity_id =
+		system_commodity_information.commodity_id
+		where sale_bills.receipt_id =
+		#{Receipts,jdbcType=VARCHAR}
+	</select>
+	<insert id="insertMMTM">
+		insert into money_management_table (money_man_id,
+		customer_id, order_id,
+		all_money, paid_amount,
+		unpaid_amount,
+		complete_time)
+		values (#{moneyManId,jdbcType=VARCHAR},
+		#{customerId,jdbcType=VARCHAR},
+		#{orderId,jdbcType=VARCHAR},
+		#{allMoney,jdbcType=DOUBLE}, #{paidAmount,jdbcType=DOUBLE},
+		#{unpaidAmount,jdbcType=DOUBLE}, #{completeTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertGOIS">
+		insert into goods_out_in_store
+		(goods_out_in_id,
+		warehouse_id,
+		commodity_id,
+		material_inventory_amount,
+		material_inventory_value,
+		goods_type,
+		time
+		)
+		values
+		(#{goodsOutInId,jdbcType=VARCHAR},
+		#{warehouseId,jdbcType=VARCHAR},
+		#{commodityId,jdbcType=VARCHAR},
+		#{materialInventoryAmount,jdbcType=INTEGER},
+		#{materialInventoryValue,jdbcType=DOUBLE},
+		#{goodsType,jdbcType=VARCHAR},
+		#{time,jdbcType=VARCHAR}
+		)
+	</insert>
+</mapper>

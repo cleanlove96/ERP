@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.SectionInfoMapper">
+	<resultMap id="BaseResultMap" type="com.model.SectionInfo">
+		<id column="section_id" property="sectionId" jdbcType="VARCHAR" />
+		<result column="section_name" property="sectionName"
+			jdbcType="VARCHAR" />
+		<result column="section_img" property="sectionImg"
+			jdbcType="VARCHAR" />
+		<result column="section_status" property="sectionStatus"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		section_id, section_name, section_img, section_status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from section_info
+		where section_id = #{sectionId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		section_info
+		where section_id = #{sectionId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.SectionInfo">
+		insert into section_info
+		(section_id, section_name, section_img,
+		section_status)
+		values
+		(#{sectionId,jdbcType=VARCHAR}, #{sectionName,jdbcType=VARCHAR},
+		#{sectionImg,jdbcType=VARCHAR},
+		#{sectionStatus,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.model.SectionInfo">
+		insert into section_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sectionId != null">
+				section_id,
+			</if>
+			<if test="sectionName != null">
+				section_name,
+			</if>
+			<if test="sectionImg != null">
+				section_img,
+			</if>
+			<if test="sectionStatus != null">
+				section_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sectionId != null">
+				#{sectionId,jdbcType=VARCHAR},
+			</if>
+			<if test="sectionName != null">
+				#{sectionName,jdbcType=VARCHAR},
+			</if>
+			<if test="sectionImg != null">
+				#{sectionImg,jdbcType=VARCHAR},
+			</if>
+			<if test="sectionStatus != null">
+				#{sectionStatus,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.SectionInfo">
+		update section_info
+		<set>
+			<if test="sectionName != null">
+				section_name = #{sectionName,jdbcType=VARCHAR},
+			</if>
+			<if test="sectionImg != null">
+				section_img = #{sectionImg,jdbcType=VARCHAR},
+			</if>
+			<if test="sectionStatus != null">
+				section_status = #{sectionStatus,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where section_id = #{sectionId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.SectionInfo">
+		update
+		section_info
+		set section_name =
+		#{sectionName,jdbcType=VARCHAR},
+		section_img =
+		#{sectionImg,jdbcType=VARCHAR},
+		section_status =
+		#{sectionStatus,jdbcType=VARCHAR}
+		where section_id =
+		#{sectionId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getInfoTable" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		section_info
+
+		where section_name LIKE #{s,jdbcType=VARCHAR} limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+
+	<select id="getTotalNum" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM
+		section_info
+
+		where section_name LIKE #{s,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectBySectionName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		*
+		from section_info
+		where section_name =
+		#{sectionName,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAllSectionInfo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		*
+		from section_info
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		*
+		from section_info
+	</select>
+
+	<!-- 查询请假人部门名 -->
+	<select id="seeLeaveAccountSection" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		*
+		FROM
+		account_role
+		INNER JOIN sys_role ON sys_role.role_id = account_role.role_id
+		INNER JOIN section_role ON sys_role.role_id = section_role.role_id
+		INNER JOIN section_info ON section_role.section_id =
+		section_info.section_id
+		where account_id =#{accountId,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

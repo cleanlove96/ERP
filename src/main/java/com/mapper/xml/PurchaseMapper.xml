@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.PurchaseMapper">
+	<resultMap id="BaseResultMap" type="com.model.Purchase">
+		<id column="purchase_id" property="purchaseId" jdbcType="VARCHAR" />
+		<result column="material_id" property="materialId" jdbcType="VARCHAR" />
+		<result column="purchase_count" property="purchaseCount"
+			jdbcType="INTEGER" />
+		<result column="purchase_total_prices" property="purchaseTotalPrices"
+			jdbcType="DOUBLE" />
+		<result column="purchase_status" property="purchaseStatus"
+			jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="purchase_unit" property="purchaseUnit"
+			jdbcType="VARCHAR" />
+		<result column="purchase_time" property="purchaseTime"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		purchase_id, material_id, purchase_count,
+		purchase_total_prices, purchase_status,
+		price, end_time, start_time,
+		purchase_unit, purchase_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from purchase
+		where purchase_id = #{purchaseId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		purchase
+		where purchase_id = #{purchaseId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.Purchase">
+		insert into purchase
+		(purchase_id, material_id, purchase_count,
+		purchase_total_prices,
+		purchase_status, price,
+		end_time, start_time, purchase_unit,
+		purchase_time)
+		values (#{purchaseId,jdbcType=VARCHAR},
+		#{materialId,jdbcType=VARCHAR},
+		#{purchaseCount,jdbcType=INTEGER},
+		#{purchaseTotalPrices,jdbcType=DOUBLE},
+		#{purchaseStatus,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},
+		#{endTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP},
+		#{purchaseUnit,jdbcType=VARCHAR},
+		#{purchaseTime,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.model.Purchase">
+		insert into purchase
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="purchaseId != null">
+				purchase_id,
+			</if>
+			<if test="materialId != null">
+				material_id,
+			</if>
+			<if test="purchaseCount != null">
+				purchase_count,
+			</if>
+			<if test="purchaseTotalPrices != null">
+				purchase_total_prices,
+			</if>
+			<if test="purchaseStatus != null">
+				purchase_status,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="purchaseUnit != null">
+				purchase_unit,
+			</if>
+			<if test="purchaseTime != null">
+				purchase_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="purchaseId != null">
+				#{purchaseId,jdbcType=VARCHAR},
+			</if>
+			<if test="materialId != null">
+				#{materialId,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseCount != null">
+				#{purchaseCount,jdbcType=INTEGER},
+			</if>
+			<if test="purchaseTotalPrices != null">
+				#{purchaseTotalPrices,jdbcType=DOUBLE},
+			</if>
+			<if test="purchaseStatus != null">
+				#{purchaseStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DOUBLE},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="purchaseUnit != null">
+				#{purchaseUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseTime != null">
+				#{purchaseTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.model.Purchase">
+		update purchase
+		<set>
+			<if test="materialId != null">
+				material_id = #{materialId,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseCount != null">
+				purchase_count = #{purchaseCount,jdbcType=INTEGER},
+			</if>
+			<if test="purchaseTotalPrices != null">
+				purchase_total_prices =
+				#{purchaseTotalPrices,jdbcType=DOUBLE},
+			</if>
+			<if test="purchaseStatus != null">
+				purchase_status = #{purchaseStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DOUBLE},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="purchaseUnit != null">
+				purchase_unit = #{purchaseUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseTime != null">
+				purchase_time = #{purchaseTime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where purchase_id = #{purchaseId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.model.Purchase">
+		update purchase
+		set material_id = #{materialId,jdbcType=VARCHAR},
+		purchase_count =
+		#{purchaseCount,jdbcType=INTEGER},
+		purchase_total_prices =
+		#{purchaseTotalPrices,jdbcType=DOUBLE},
+		purchase_status =
+		#{purchaseStatus,jdbcType=VARCHAR},
+		price = #{price,jdbcType=DOUBLE},
+		end_time = #{endTime,jdbcType=TIMESTAMP},
+		start_time =
+		#{startTime,jdbcType=TIMESTAMP},
+		purchase_unit =
+		#{purchaseUnit,jdbcType=VARCHAR},
+		purchase_time =
+		#{purchaseTime,jdbcType=VARCHAR}
+		where purchase_id =
+		#{purchaseId,jdbcType=VARCHAR}
+	</update>
+	<select id="getPurchaseTable" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		*
+		from purchase
+		where purchase_time = #{searchCard,jdbcType=VARCHAR} and start_time BETWEEN #{myStartTime1,jdbcType=VARCHAR} and 
+		#{myStartTime2,jdbcType=VARCHAR} and end_time BETWEEN #{myEndTime1,jdbcType=VARCHAR} and
+		#{myEndTime2,jdbcType=VARCHAR}
+		limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+	<select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(*) from purchase
+		where purchase_time =
+		#{searchCard,jdbcType=VARCHAR} and start_time between #{myStartTime1,jdbcType=VARCHAR} and 
+		#{myStartTime2,jdbcType=VARCHAR} and end_time between #{myEndTime1,jdbcType=VARCHAR} and
+		#{myEndTime2,jdbcType=VARCHAR}
+
+	</select>
+
+	<select id="selectPurchaseAll" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from purchase
+		where purchase_time = #{searchCard,jdbcType=VARCHAR}
+	</select>
+</mapper>

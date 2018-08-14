@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.ReimbursementMapper" >
+  <resultMap id="BaseResultMap" type="com.model.Reimbursement" >
+    <id column="reimbursement_id" property="reimbursementId" jdbcType="VARCHAR" />
+    <result column="cost_item" property="costItem" jdbcType="VARCHAR" />
+    <result column="reimbursement_respon" property="reimbursementRespon" jdbcType="VARCHAR" />
+    <result column="cost_type" property="costType" jdbcType="VARCHAR" />
+    <result column="cost_total" property="costTotal" jdbcType="VARCHAR" />
+    <result column="bx_person_id" property="bxPersonId" jdbcType="VARCHAR" />
+    <result column="cost_auditor_id" property="costAuditorId" jdbcType="VARCHAR" />
+    <result column="cost_create_time" property="costCreateTime" jdbcType="TIMESTAMP" />
+    <result column="reimbursement_state" property="reimbursementState" jdbcType="VARCHAR" />
+    <result column="reimbursement_refuse" property="reimbursementRefuse" jdbcType="VARCHAR" />
+    <result column="reimbursement_isRead" property="reimbursementIsread" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    reimbursement_id, cost_item, reimbursement_respon, cost_type, cost_total, bx_person_id, 
+    cost_auditor_id, cost_create_time, reimbursement_state, reimbursement_refuse, reimbursement_isRead
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from reimbursement
+    where reimbursement_id = #{reimbursementId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from reimbursement
+    where reimbursement_id = #{reimbursementId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.Reimbursement" >
+    insert into reimbursement (reimbursement_id, cost_item, reimbursement_respon, 
+      cost_type, cost_total, bx_person_id, 
+      cost_auditor_id, cost_create_time, reimbursement_state, 
+      reimbursement_refuse, reimbursement_isRead
+      )
+    values (#{reimbursementId,jdbcType=VARCHAR}, #{costItem,jdbcType=VARCHAR}, #{reimbursementRespon,jdbcType=VARCHAR}, 
+      #{costType,jdbcType=VARCHAR}, #{costTotal,jdbcType=VARCHAR}, #{bxPersonId,jdbcType=VARCHAR}, 
+      #{costAuditorId,jdbcType=VARCHAR}, #{costCreateTime,jdbcType=TIMESTAMP}, #{reimbursementState,jdbcType=VARCHAR}, 
+      #{reimbursementRefuse,jdbcType=VARCHAR}, #{reimbursementIsread,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Reimbursement" >
+    insert into reimbursement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reimbursementId != null" >
+        reimbursement_id,
+      </if>
+      <if test="costItem != null" >
+        cost_item,
+      </if>
+      <if test="reimbursementRespon != null" >
+        reimbursement_respon,
+      </if>
+      <if test="costType != null" >
+        cost_type,
+      </if>
+      <if test="costTotal != null" >
+        cost_total,
+      </if>
+      <if test="bxPersonId != null" >
+        bx_person_id,
+      </if>
+      <if test="costAuditorId != null" >
+        cost_auditor_id,
+      </if>
+      <if test="costCreateTime != null" >
+        cost_create_time,
+      </if>
+      <if test="reimbursementState != null" >
+        reimbursement_state,
+      </if>
+      <if test="reimbursementRefuse != null" >
+        reimbursement_refuse,
+      </if>
+      <if test="reimbursementIsread != null" >
+        reimbursement_isRead,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reimbursementId != null" >
+        #{reimbursementId,jdbcType=VARCHAR},
+      </if>
+      <if test="costItem != null" >
+        #{costItem,jdbcType=VARCHAR},
+      </if>
+      <if test="reimbursementRespon != null" >
+        #{reimbursementRespon,jdbcType=VARCHAR},
+      </if>
+      <if test="costType != null" >
+        #{costType,jdbcType=VARCHAR},
+      </if>
+      <if test="costTotal != null" >
+        #{costTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="bxPersonId != null" >
+        #{bxPersonId,jdbcType=VARCHAR},
+      </if>
+      <if test="costAuditorId != null" >
+        #{costAuditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="costCreateTime != null" >
+        #{costCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reimbursementState != null" >
+        #{reimbursementState,jdbcType=VARCHAR},
+      </if>
+      <if test="reimbursementRefuse != null" >
+        #{reimbursementRefuse,jdbcType=VARCHAR},
+      </if>
+      <if test="reimbursementIsread != null" >
+        #{reimbursementIsread,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Reimbursement" >
+    update reimbursement
+    <set >
+      <if test="costItem != null" >
+        cost_item = #{costItem,jdbcType=VARCHAR},
+      </if>
+      <if test="reimbursementRespon != null" >
+        reimbursement_respon = #{reimbursementRespon,jdbcType=VARCHAR},
+      </if>
+      <if test="costType != null" >
+        cost_type = #{costType,jdbcType=VARCHAR},
+      </if>
+      <if test="costTotal != null" >
+        cost_total = #{costTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="bxPersonId != null" >
+        bx_person_id = #{bxPersonId,jdbcType=VARCHAR},
+      </if>
+      <if test="costAuditorId != null" >
+        cost_auditor_id = #{costAuditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="costCreateTime != null" >
+        cost_create_time = #{costCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reimbursementState != null" >
+        reimbursement_state = #{reimbursementState,jdbcType=VARCHAR},
+      </if>
+      <if test="reimbursementRefuse != null" >
+        reimbursement_refuse = #{reimbursementRefuse,jdbcType=VARCHAR},
+      </if>
+      <if test="reimbursementIsread != null" >
+        reimbursement_isRead = #{reimbursementIsread,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where reimbursement_id = #{reimbursementId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Reimbursement" >
+    update reimbursement
+    set cost_item = #{costItem,jdbcType=VARCHAR},
+      reimbursement_respon = #{reimbursementRespon,jdbcType=VARCHAR},
+      cost_type = #{costType,jdbcType=VARCHAR},
+      cost_total = #{costTotal,jdbcType=VARCHAR},
+      bx_person_id = #{bxPersonId,jdbcType=VARCHAR},
+      cost_auditor_id = #{costAuditorId,jdbcType=VARCHAR},
+      cost_create_time = #{costCreateTime,jdbcType=TIMESTAMP},
+      reimbursement_state = #{reimbursementState,jdbcType=VARCHAR},
+      reimbursement_refuse = #{reimbursementRefuse,jdbcType=VARCHAR},
+      reimbursement_isRead = #{reimbursementIsread,jdbcType=VARCHAR}
+    where reimbursement_id = #{reimbursementId,jdbcType=VARCHAR}
+  </update>
+  <!-- 查询 没有审核的条数-->
+  <select id="queryWaitApprovalCount"  resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(*) from reimbursement
+    where  reimbursement_state ='未审批'
+  </select>
+  <!-- 查询 审核中的条数-->
+  <select id="queryMeiApprovalCount"  resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(*) from reimbursement
+    where  reimbursement_state ='审批中'
+  </select>
+  <!-- 查询 已经审核的条数-->
+  <select id="queryApprovalCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(*) from reimbursement
+    where  reimbursement_state  in('同意','拒绝')
+  </select>
+  <!-- 查询 未读信息的条数-->
+   <select id="queryNotApprovalCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(*) from reimbursement
+    where  reimbursement_isRead = '0'
+  </select>
+  
+  <!-- 报销人查询未读 -->
+   <select id="queryNotRead" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+      <include refid="Base_Column_List" />
+     from reimbursement
+    where reimbursement_isRead = '0'
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  
+   <!-- 报销人查询已审核 -->
+   <select id="queryComplete" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+      <include refid="Base_Column_List" />
+     from reimbursement
+    where  reimbursement_state in('同意','拒绝') 
+    limit	#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  
+  
+   <!-- 报销人查询审核中 -->
+   <select id="queryNotComplete" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+      <include refid="Base_Column_List" />
+     from reimbursement
+    where  reimbursement_state ='审批中' 
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <!-- 报销人查询未审核 -->
+   <select id="queryNotCompleteREI" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+      <include refid="Base_Column_List" />
+     from reimbursement
+    where  reimbursement_state ='未审批' 
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <!--审核人 查询 待审核审核的条数-->
+  <select id="queryAllWaitApprovalCount"  resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(*) from reimbursement
+    where  bx_person_id not in(#{bxPersonId,jdbcType=VARCHAR}) and reimbursement_state not in('同意','拒绝')
+  </select>
+  <!--审核人 查询已经审核的条数-->
+  <select id="queryAllApprovalCount"  resultType="java.lang.Integer"  parameterType="java.lang.String">
+    select count(*) from reimbursement
+    where reimbursement_state  in('同意','拒绝')
+  </select>
+  <!--审核人 查询 未读信息的条数-->
+  <select id="queryAllNotApprovalCount"  resultType="java.lang.Integer"  parameterType="java.lang.String">
+    select count(*) from reimbursement
+    where bx_person_id not in(#{bxPersonId,jdbcType=VARCHAR}) and reimbursement_state = '未审批'
+  </select>
+  
+  <!-- 审核人查询待审核 -->
+   <select id="queryAllNotComplete" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+      <include refid="Base_Column_List" />
+     from reimbursement
+    where bx_person_id not in (#{bxPersonId,jdbcType=VARCHAR})  and reimbursement_state not in('同意','拒绝') 
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <!-- 审核人查询已审核 -->
+   <select id="queryAllComplete" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+      <include refid="Base_Column_List" />
+     from reimbursement
+    where  reimbursement_state in('同意','拒绝') 
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <!-- 审核人查询未审核 -->
+   <select id="queryAllNotRead" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+      <include refid="Base_Column_List" />
+     from reimbursement
+    where bx_person_id not in (#{bxPersonId,jdbcType=VARCHAR})  and reimbursement_state = '未审批' 
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <!-- 报销人修改查看了的报销单已读状态 -->
+  <update id="updateIsRead" parameterType="java.lang.String" >
+    update reimbursement
+    set 
+      reimbursement_isRead = '1'
+    where reimbursement_id = #{reimbursementId,jdbcType=VARCHAR}
+  </update>
+  <!-- 审核人修改查看了的报销单审核状态 -->
+  <update id="updateState" parameterType="java.lang.String" >
+    update reimbursement
+    set 
+      reimbursement_state = '审批中'
+    where reimbursement_id = #{reimbursementId,jdbcType=VARCHAR}
+  </update>
+</mapper>

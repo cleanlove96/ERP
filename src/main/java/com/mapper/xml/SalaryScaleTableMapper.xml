@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.SalaryScaleTableMapper">
+	<resultMap id="BaseResultMap"
+		type="com.model.SalaryScaleTable">
+		<id column="salary_scale_id" property="salaryScaleId"
+			jdbcType="VARCHAR" />
+		<result column="role_id" property="roleId" jdbcType="VARCHAR" />
+		<result column="salary" property="salary" jdbcType="DOUBLE" />
+		<result column="change_time" property="changeTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="PojoBaseResultMap"
+		type="com.pojo.SalaryScalePojo">
+		<id column="salary_scale_id" property="salaryScaleId"
+			jdbcType="VARCHAR" />
+		<result column="role_id" property="roleId" jdbcType="VARCHAR" />
+		<result column="individual_salary_id" property="individualSalaryId" jdbcType="VARCHAR" />
+		<result column="role_name" property="roleName"
+			jdbcType="VARCHAR" />
+		<result column="section_name" property="sectionName"
+			jdbcType="VARCHAR" />
+		<result column="account_name" property="accountName"
+			jdbcType="VARCHAR" />
+		<result column="account_id" property="accountId"
+			jdbcType="VARCHAR" />
+		<result column="account_num" property="accountNum"
+			jdbcType="VARCHAR" />
+		<result column="salary" property="salary" jdbcType="DOUBLE" />
+		<result column="adjust_money" property="adjustMoney"
+			jdbcType="DOUBLE" />
+		<result column="change_time" property="changeTime"
+			jdbcType="TIMESTAMP" />
+		<result column="adjust_time" property="adjustTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		salary_scale_id, role_id, salary, change_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from salary_scale_table
+		where salary_scale_id =
+		#{salaryScaleId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		salary_scale_table
+		where salary_scale_id =
+		#{salaryScaleId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.SalaryScaleTable">
+		insert into salary_scale_table
+		(salary_scale_id, role_id, salary,
+		change_time)
+		values
+		(#{salaryScaleId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR},
+		#{salary,jdbcType=DOUBLE},
+		#{changeTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.model.SalaryScaleTable">
+		insert into salary_scale_table
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="salaryScaleId != null">
+				salary_scale_id,
+			</if>
+			<if test="roleId != null">
+				role_id,
+			</if>
+			<if test="salary != null">
+				salary,
+			</if>
+			<if test="changeTime != null">
+				change_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="salaryScaleId != null">
+				#{salaryScaleId,jdbcType=VARCHAR},
+			</if>
+			<if test="roleId != null">
+				#{roleId,jdbcType=VARCHAR},
+			</if>
+			<if test="salary != null">
+				#{salary,jdbcType=DOUBLE},
+			</if>
+			<if test="changeTime != null">
+				#{changeTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.SalaryScaleTable">
+		update salary_scale_table
+		<set>
+			<if test="roleId != null">
+				role_id = #{roleId,jdbcType=VARCHAR},
+			</if>
+			<if test="salary != null">
+				salary = #{salary,jdbcType=DOUBLE},
+			</if>
+			<if test="changeTime != null">
+				change_time = #{changeTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where salary_scale_id = #{salaryScaleId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.SalaryScaleTable">
+		update salary_scale_table
+		set role_id =
+		#{roleId,jdbcType=VARCHAR},
+		salary = #{salary,jdbcType=DOUBLE},
+		change_time = #{changeTime,jdbcType=TIMESTAMP}
+		where salary_scale_id =
+		#{salaryScaleId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getMinistryTable" resultMap="PojoBaseResultMap">
+		SELECT
+		sys_role.role_name,
+		salary_scale_table.salary_scale_id,
+		salary_scale_table.role_id,
+		salary_scale_table.salary,
+		salary_scale_table.change_time,
+		section_info.section_name
+		FROM
+		sys_role
+		INNER JOIN section_role ON section_role.role_id = sys_role.role_id
+		INNER JOIN salary_scale_table ON sys_role.role_id =
+		salary_scale_table.role_id
+		INNER JOIN section_info ON
+		section_role.section_id =
+		section_info.section_id
+		limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+
+	<select id="getRoleNum" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		FROM
+		sys_role
+		INNER JOIN section_role ON section_role.role_id = sys_role.role_id
+		INNER JOIN salary_scale_table ON sys_role.role_id =
+		salary_scale_table.role_id
+		INNER JOIN section_info ON
+		section_role.section_id =
+		section_info.section_id
+	</select>
+
+	<select id="selectByAccountId" resultMap="PojoBaseResultMap">
+		SELECT
+		individual_salary.adjust_money,
+		system_account.account_name,
+		system_account.account_num,
+		section_info.section_name,
+		sys_role.role_name,
+		salary_scale_table.salary,
+		system_account.account_id,
+		individual_salary.adjust_time,
+		individual_salary.individual_salary_id
+		FROM
+		individual_salary
+		INNER JOIN system_account ON individual_salary.account_id =
+		system_account.account_id
+		INNER JOIN account_role ON individual_salary.account_id =
+		account_role.account_id
+		INNER JOIN section_role ON account_role.role_id = section_role.role_id
+		INNER JOIN section_info ON section_role.section_id =
+		section_info.section_id
+		INNER JOIN sys_role ON account_role.role_id = sys_role.role_id
+		INNER JOIN salary_scale_table ON salary_scale_table.role_id =
+		account_role.role_id
+		WHERE system_account.account_id=#{id,jdbcType=VARCHAR}
+	</select>
+</mapper>

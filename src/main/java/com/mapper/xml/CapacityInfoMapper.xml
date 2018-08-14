@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.CapacityInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.model.CapacityInfo" >
+    <id column="capacity_id" property="capacityId" jdbcType="VARCHAR" />
+    <result column="capacity_production_line_name" property="capacityProductionLineName" jdbcType="VARCHAR" />
+    <result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+    <result column="capacity_yield" property="capacityYield" jdbcType="INTEGER" />
+    <result column="capacity_unit" property="capacityUnit" jdbcType="VARCHAR" />
+    <result column="capacity_creation_time" property="capacityCreationTime" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="CapResultMap" type="com.pojo.CapacityInfor" >
+    <id column="capacity_id" property="capacityId" jdbcType="VARCHAR" />
+    <result column="capacity_production_line_name" property="capacityProductionLineName" jdbcType="VARCHAR" />
+    <result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+    <result column="commodtyl_type" property="commodityType" jdbcType="VARCHAR" />
+     <result column="commodty_odor_type" property="odorType" jdbcType="VARCHAR" />
+    <result column="capacity_yield" property="capacityYield" jdbcType="INTEGER" />
+    <result column="capacity_unit" property="capacityUnit" jdbcType="VARCHAR" />
+    <result column="capacity_creation_time" property="capacityCreationTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    capacity_id, capacity_production_line_name, commodity_name, capacity_yield, capacity_unit, 
+    capacity_creation_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from capacity
+    where capacity_id = #{capacityId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from capacity
+    where capacity_id = #{capacityId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.CapacityInfo" >
+    insert into capacity (capacity_id, capacity_production_line_name, 
+      commodity_name, capacity_yield, capacity_unit, 
+      capacity_creation_time)
+    values (#{capacityId,jdbcType=VARCHAR}, #{capacityProductionLineName,jdbcType=VARCHAR}, 
+      #{commodityName,jdbcType=VARCHAR}, #{capacityYield,jdbcType=INTEGER}, #{capacityUnit,jdbcType=VARCHAR}, 
+      #{capacityCreationTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.CapacityInfo" >
+    insert into capacity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="capacityId != null" >
+        capacity_id,
+      </if>
+      <if test="capacityProductionLineName != null" >
+        capacity_production_line_name,
+      </if>
+      <if test="commodityName != null" >
+        commodity_name,
+      </if>
+      <if test="capacityYield != null" >
+        capacity_yield,
+      </if>
+      <if test="capacityUnit != null" >
+        capacity_unit,
+      </if>
+      <if test="capacityCreationTime != null" >
+        capacity_creation_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="capacityId != null" >
+        #{capacityId,jdbcType=VARCHAR},
+      </if>
+      <if test="capacityProductionLineName != null" >
+        #{capacityProductionLineName,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityName != null" >
+        #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="capacityYield != null" >
+        #{capacityYield,jdbcType=INTEGER},
+      </if>
+      <if test="capacityUnit != null" >
+        #{capacityUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="capacityCreationTime != null" >
+        #{capacityCreationTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.CapacityInfo" >
+    update capacity
+    <set >
+      <if test="capacityProductionLineName != null" >
+        capacity_production_line_name = #{capacityProductionLineName,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityName != null" >
+        commodity_name = #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="capacityYield != null" >
+        capacity_yield = #{capacityYield,jdbcType=INTEGER},
+      </if>
+      <if test="capacityUnit != null" >
+        capacity_unit = #{capacityUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="capacityCreationTime != null" >
+        capacity_creation_time = #{capacityCreationTime,jdbcType=DATE},
+      </if>
+    </set>
+    where capacity_id = #{capacityId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.CapacityInfo" >
+    update capacity
+    set capacity_production_line_name = #{capacityProductionLineName,jdbcType=VARCHAR},
+      commodity_name = #{commodityName,jdbcType=VARCHAR},
+      capacity_yield = #{capacityYield,jdbcType=INTEGER},
+      capacity_unit = #{capacityUnit,jdbcType=VARCHAR},
+      capacity_creation_time = #{capacityCreationTime,jdbcType=DATE}
+    where capacity_id = #{capacityId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByNameCount" resultType="int" parameterType="java.lang.String" >
+    select count(*)
+    from capacity
+    where capacity_production_line_name = #{capacityProductionLineName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByNameOrCount" resultType="int"  >
+    select count(*)
+    from capacity
+    where capacity_production_line_name = #{capacityProductionLineName,jdbcType=VARCHAR}
+     and capacity_id != #{capacityId,jdbcType=VARCHAR}
+  </select>
+  <select id="getCapacityNum" resultType="int" parameterType="java.lang.String" >
+    select count(*) 
+	FROM
+	capacity
+	INNER JOIN system_commodity_information ON capacity.commodity_name = system_commodity_information.commodity_id
+    where (
+    capacity.capacity_production_line_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%') 
+    or system_commodity_information.commodity_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+     or capacity.capacity_yield like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+      or capacity.capacity_unit like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+      )
+  </select>
+  
+  <select id="selectLike" resultMap="CapResultMap">
+    SELECT
+		capacity.capacity_id,
+		capacity.capacity_production_line_name,
+		system_commodity_information.commodity_name,
+		system_commodity_information.commodtyl_type,
+		system_commodity_information.commodty_odor_type,
+		capacity.capacity_yield,
+		capacity.capacity_unit,
+		capacity.capacity_creation_time
+	FROM
+	capacity
+	INNER JOIN system_commodity_information ON capacity.commodity_name = system_commodity_information.commodity_id
+    where (
+    capacity.capacity_production_line_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%') 
+    or system_commodity_information.commodity_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+     or capacity.capacity_yield like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+      or capacity.capacity_unit like CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+      )
+      ORDER BY  capacity.capacity_creation_time 
+      limit #{start},#{numPerPage}
+  </select>
+  
+  <select id="selectCapacityAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from capacity
+  </select>
+</mapper>

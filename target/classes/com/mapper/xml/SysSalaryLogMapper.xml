@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.SysSalaryLogMapper" >
+  <resultMap id="BaseResultMap" type="com.model.SysSalaryLog" >
+    <id column="salary_log_id" property="salaryLogId" jdbcType="VARCHAR" />
+    <result column="account_login_id" property="accountLoginId" jdbcType="VARCHAR" />
+    <result column="salary_log_date" property="salaryLogDate" jdbcType="VARCHAR" />
+    <result column="salary_log_type" property="salaryLogType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    salary_log_id, account_login_id, salary_log_date, salary_log_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_salary_log
+    where salary_log_id = #{salaryLogId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_salary_log
+    where salary_log_id = #{salaryLogId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.SysSalaryLog" >
+    insert into sys_salary_log (salary_log_id, account_login_id, salary_log_date, 
+      salary_log_type)
+    values (#{salaryLogId,jdbcType=VARCHAR}, #{accountLoginId,jdbcType=VARCHAR}, #{salaryLogDate,jdbcType=VARCHAR}, 
+      #{salaryLogType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.SysSalaryLog" >
+    insert into sys_salary_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="salaryLogId != null" >
+        salary_log_id,
+      </if>
+      <if test="accountLoginId != null" >
+        account_login_id,
+      </if>
+      <if test="salaryLogDate != null" >
+        salary_log_date,
+      </if>
+      <if test="salaryLogType != null" >
+        salary_log_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="salaryLogId != null" >
+        #{salaryLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountLoginId != null" >
+        #{accountLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryLogDate != null" >
+        #{salaryLogDate,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryLogType != null" >
+        #{salaryLogType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.SysSalaryLog" >
+    update sys_salary_log
+    <set >
+      <if test="accountLoginId != null" >
+        account_login_id = #{accountLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryLogDate != null" >
+        salary_log_date = #{salaryLogDate,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryLogType != null" >
+        salary_log_type = #{salaryLogType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where salary_log_id = #{salaryLogId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.SysSalaryLog" >
+    update sys_salary_log
+    set account_login_id = #{accountLoginId,jdbcType=VARCHAR},
+      salary_log_date = #{salaryLogDate,jdbcType=VARCHAR},
+      salary_log_type = #{salaryLogType,jdbcType=VARCHAR}
+    where salary_log_id = #{salaryLogId,jdbcType=VARCHAR}
+  </update>
+</mapper>

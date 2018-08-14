@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.FixedAssetsMapper">
+	<resultMap id="BaseResultMap" type="com.model.FixedAssets">
+		<id column="fixed_assets_id" property="fixedAssetsId"
+			jdbcType="VARCHAR" />
+		<result column="fixed_assets_name" property="fixedAssetsName"
+			jdbcType="VARCHAR" />
+		<result column="fixed_assets_num" property="fixedAssetsNum"
+			jdbcType="VARCHAR" />
+		<result column="fixed_assets_price" property="fixedAssetsPrice"
+			jdbcType="DOUBLE" />
+		<result column="fixed_assets_time" property="fixedAssetsTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		fixed_assets_id, fixed_assets_name, fixed_assets_num,
+		fixed_assets_price,
+		fixed_assets_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from fixed_assets
+		where fixed_assets_id =
+		#{fixedAssetsId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		fixed_assets
+		where fixed_assets_id = #{fixedAssetsId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.FixedAssets">
+		insert into fixed_assets
+		(fixed_assets_id, fixed_assets_name,
+		fixed_assets_num,
+		fixed_assets_price, fixed_assets_time)
+		values
+		(#{fixedAssetsId,jdbcType=VARCHAR},
+		#{fixedAssetsName,jdbcType=VARCHAR},
+		#{fixedAssetsNum,jdbcType=VARCHAR},
+		#{fixedAssetsPrice,jdbcType=DOUBLE},
+		#{fixedAssetsTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.model.FixedAssets">
+		insert into fixed_assets
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fixedAssetsId != null">
+				fixed_assets_id,
+			</if>
+			<if test="fixedAssetsName != null">
+				fixed_assets_name,
+			</if>
+			<if test="fixedAssetsNum != null">
+				fixed_assets_num,
+			</if>
+			<if test="fixedAssetsPrice != null">
+				fixed_assets_price,
+			</if>
+			<if test="fixedAssetsTime != null">
+				fixed_assets_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fixedAssetsId != null">
+				#{fixedAssetsId,jdbcType=VARCHAR},
+			</if>
+			<if test="fixedAssetsName != null">
+				#{fixedAssetsName,jdbcType=VARCHAR},
+			</if>
+			<if test="fixedAssetsNum != null">
+				#{fixedAssetsNum,jdbcType=VARCHAR},
+			</if>
+			<if test="fixedAssetsPrice != null">
+				#{fixedAssetsPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="fixedAssetsTime != null">
+				#{fixedAssetsTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.FixedAssets">
+		update fixed_assets
+		<set>
+			<if test="fixedAssetsName != null">
+				fixed_assets_name = #{fixedAssetsName,jdbcType=VARCHAR},
+			</if>
+			<if test="fixedAssetsNum != null">
+				fixed_assets_num = #{fixedAssetsNum,jdbcType=VARCHAR},
+			</if>
+			<if test="fixedAssetsPrice != null">
+				fixed_assets_price = #{fixedAssetsPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="fixedAssetsTime != null">
+				fixed_assets_time =
+				#{fixedAssetsTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where fixed_assets_id = #{fixedAssetsId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.FixedAssets">
+		update fixed_assets
+		set fixed_assets_name =
+		#{fixedAssetsName,jdbcType=VARCHAR},
+		fixed_assets_num =
+		#{fixedAssetsNum,jdbcType=VARCHAR},
+		fixed_assets_price =
+		#{fixedAssetsPrice,jdbcType=DOUBLE},
+		fixed_assets_time =
+		#{fixedAssetsTime,jdbcType=TIMESTAMP}
+		where fixed_assets_id =
+		#{fixedAssetsId,jdbcType=VARCHAR}
+	</update>
+	<select id="getTotalNum" resultType="java.lang.Integer">
+		SELECT count(*) from
+		fixed_assets WHERE fixed_assets_name LIKE
+		#{name,jdbcType=VARCHAR}
+	</select>
+
+	<select id="getFixedAssetsTable" resultMap="BaseResultMap">
+		SELECT * from
+		fixed_assets
+		where fixed_assets_name like #{sreach,jdbcType=VARCHAR}
+		order BY fixed_assets_num
+		limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+	<select id="selectFixedAssets" resultMap="BaseResultMap">
+		SELECT * FROM
+		fixed_assets ORDER BY fixed_assets_num DESC LIMIT 0,1
+	</select>
+</mapper>

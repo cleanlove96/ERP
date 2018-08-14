@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.WareHouseMapper" >
+  <resultMap id="BaseResultMap" type="com.model.WareHouse" >
+    <id column="warehouse_id" property="warehouseId" jdbcType="VARCHAR" />
+    <result column="warehouse_name" property="warehouseName" jdbcType="VARCHAR" />
+    <result column="warehouse_desc" property="warehouseDesc" jdbcType="VARCHAR" />
+    <result column="warehouse_status" property="warehouseStatus" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    warehouse_id, warehouse_name, warehouse_desc, warehouse_status, create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from warehouse
+    where warehouse_id = #{warehouseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from warehouse
+    where warehouse_id = #{warehouseId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.WareHouse" >
+    insert into warehouse (warehouse_id, warehouse_name, warehouse_desc, warehouse_status,create_date)
+    values (#{warehouseId,jdbcType=VARCHAR}, #{warehouseName,jdbcType=VARCHAR}, #{warehouseDesc,jdbcType=VARCHAR}, 
+      #{warehouseStatus,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.WareHouse" >
+    insert into warehouse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="warehouseId != null" >
+        warehouse_id,
+      </if>
+      <if test="warehouseName != null" >
+        warehouse_name,
+      </if>
+      <if test="warehouseDesc != null" >
+        warehouse_desc,
+      </if>
+      <if test="warehouseStatus != null" >
+        warehouse_status,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="warehouseId != null" >
+        #{warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseName != null" >
+        #{warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseDesc != null" >
+        #{warehouseDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseStatus != null" >
+        #{warehouseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.WareHouse" >
+    update warehouse
+    <set >
+      <if test="warehouseName != null" >
+        warehouse_name = #{warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseDesc != null" >
+        warehouse_desc = #{warehouseDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseStatus != null" >
+        warehouse_status = #{warehouseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where warehouse_id = #{warehouseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.WareHouse" >
+    update warehouse
+    set warehouse_name = #{warehouseName,jdbcType=VARCHAR},
+      warehouse_desc = #{warehouseDesc,jdbcType=VARCHAR},
+      warehouse_status = #{warehouseStatus,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR}
+    where warehouse_id = #{warehouseId,jdbcType=VARCHAR}
+  </update>
+  <select id="getWareHouseNum" resultType="int" parameterType="java.lang.String" >
+    select count(*) 
+    from warehouse
+    where (warehouse_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%') 
+    or warehouse_desc like CONCAT('%',#{search,jdbcType=VARCHAR},'%')) 
+    and warehouse_status='1'
+  </select>
+  <select id="selectLike" resultMap="BaseResultMap"  >
+    select <include refid="Base_Column_List" /> 
+    from warehouse
+    where (warehouse_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%') 
+    or warehouse_desc like CONCAT('%',#{search,jdbcType=VARCHAR},'%'))
+    and warehouse_status='1' limit #{start},#{numPerPage}
+  </select>
+  <select id="selectByNameCount" resultType="int" parameterType="java.lang.String" >
+    select count(*) 
+    from warehouse
+    where warehouse_name=#{warehouseName,jdbcType=VARCHAR}
+  </select>
+
+  
+    <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    *
+    from warehouse
+    where warehouse_status = '1' and warehouse_name like '%商品%'
+  </select>
+
+    <select id="selectByMaterial" resultMap="BaseResultMap">
+    select 
+    *
+    from warehouse
+    where warehouse_status = '1' and warehouse_name like '%原料%'
+  </select>
+
+  <select id="selectByNameOrIDCount" resultType="int"  >
+    select count(*) 
+    from warehouse
+    where warehouse_name=#{warehouseName,jdbcType=VARCHAR} and warehouse_id !=#{warehouseId,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

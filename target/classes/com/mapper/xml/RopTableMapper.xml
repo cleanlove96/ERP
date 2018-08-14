@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.RopTableMapper">
+	<resultMap id="BaseResultMap" type="com.model.RopTable">
+		<id column="rop_id" property="ropId" jdbcType="VARCHAR" />
+		<result column="capacity_id" property="capacityId"
+			jdbcType="VARCHAR" />
+		<result column="commodity_id" property="commodityId"
+			jdbcType="VARCHAR" />
+		<result column="rop_unit" property="ropUnit" jdbcType="INTEGER" />
+		<result column="rop_loss" property="ropLoss" jdbcType="INTEGER" />
+		<result column="rop_production_time"
+			property="ropProductionTime" jdbcType="DATE" />
+		<result column="rop_warehouse_entry_time"
+			property="ropWarehouseEntryTime" jdbcType="DATE" />
+		<result column="rop_into_warehouse" property="ropIntoWarehouse"
+			jdbcType="VARCHAR" />
+		<result column="batch_number" property="batchNumber"
+			jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+	</resultMap>
+	<resultMap id="BaseMap" type="com.pojo.materialOutPojo">
+		<id column="rop_id" property="ropId" jdbcType="VARCHAR" />
+		<result column="material_name" property="materialName"
+			jdbcType="VARCHAR" />
+		<result column="rop_unit" property="ropUnit" jdbcType="INTEGER" />
+		<result column="material_id" property="materialId"
+			jdbcType="VARCHAR" />
+		<result column="formula_count" property="formulaCount"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="RopResultMap" type="com.pojo.Rop">
+		<id column="rop_id" property="ropId" jdbcType="VARCHAR" />
+		<result column="capacity_id" property="capacityId"
+			jdbcType="VARCHAR" />
+		<result column="capacity_production_line_name"
+			property="capacityName" jdbcType="VARCHAR" />
+		<result column="commodity_id" property="commodityId"
+			jdbcType="VARCHAR" />
+		<result column="commodity_name" property="commodityName"
+			jdbcType="VARCHAR" />
+		<result column="rop_unit" property="ropUnit" jdbcType="INTEGER" />
+		<result column="rop_loss" property="ropLoss" jdbcType="INTEGER" />
+		<result column="rop_production_time"
+			property="ropProductionTime" jdbcType="DATE" />
+		<result column="rop_warehouse_entry_time"
+			property="ropWarehouseEntryTime" jdbcType="DATE" />
+		<result column="rop_into_warehouse" property="ropIntoWarehouse"
+			jdbcType="VARCHAR" />
+		<result column="batch_number" property="batchNumber"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		rop_id, capacity_id, commodity_id, rop_unit, rop_loss,
+		rop_production_time,
+		rop_warehouse_entry_time,
+		rop_into_warehouse,
+		batch_number
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from rop_table
+		where rop_id = #{ropId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		rop_table
+		where rop_id = #{ropId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.model.RopTable">
+		insert into rop_table (rop_id,
+		capacity_id, commodity_id,
+		rop_unit, rop_loss, rop_production_time,
+		rop_warehouse_entry_time, rop_into_warehouse, batch_number
+		)
+		values
+		(#{ropId,jdbcType=VARCHAR}, #{capacityId,jdbcType=VARCHAR},
+		#{commodityId,jdbcType=VARCHAR},
+		#{ropUnit,jdbcType=INTEGER},
+		#{ropLoss,jdbcType=INTEGER}, #{ropProductionTime,jdbcType=DATE},
+		#{ropWarehouseEntryTime,jdbcType=DATE},
+		#{ropIntoWarehouse,jdbcType=VARCHAR}, #{batchNumber,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.model.RopTable">
+		insert into rop_table
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ropId != null">
+				rop_id,
+			</if>
+			<if test="capacityId != null">
+				capacity_id,
+			</if>
+			<if test="commodityId != null">
+				commodity_id,
+			</if>
+			<if test="ropUnit != null">
+				rop_unit,
+			</if>
+			<if test="ropLoss != null">
+				rop_loss,
+			</if>
+			<if test="ropProductionTime != null">
+				rop_production_time,
+			</if>
+			<if test="ropWarehouseEntryTime != null">
+				rop_warehouse_entry_time,
+			</if>
+			<if test="ropIntoWarehouse != null">
+				rop_into_warehouse,
+			</if>
+			<if test="batchNumber != null">
+				batch_number,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ropId != null">
+				#{ropId,jdbcType=VARCHAR},
+			</if>
+			<if test="capacityId != null">
+				#{capacityId,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityId != null">
+				#{commodityId,jdbcType=VARCHAR},
+			</if>
+			<if test="ropUnit != null">
+				#{ropUnit,jdbcType=INTEGER},
+			</if>
+			<if test="ropLoss != null">
+				#{ropLoss,jdbcType=INTEGER},
+			</if>
+			<if test="ropProductionTime != null">
+				#{ropProductionTime,jdbcType=DATE},
+			</if>
+			<if test="ropWarehouseEntryTime != null">
+				#{ropWarehouseEntryTime,jdbcType=DATE},
+			</if>
+			<if test="ropIntoWarehouse != null">
+				#{ropIntoWarehouse,jdbcType=VARCHAR},
+			</if>
+			<if test="batchNumber != null">
+				#{batchNumber,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.model.RopTable">
+		update rop_table
+		<set>
+			<if test="capacityId != null">
+				capacity_id = #{capacityId,jdbcType=VARCHAR},
+			</if>
+			<if test="commodityId != null">
+				commodity_id = #{commodityId,jdbcType=VARCHAR},
+			</if>
+			<if test="ropUnit != null">
+				rop_unit = #{ropUnit,jdbcType=INTEGER},
+			</if>
+			<if test="ropLoss != null">
+				rop_loss = #{ropLoss,jdbcType=INTEGER},
+			</if>
+			<if test="ropProductionTime != null">
+				rop_production_time = #{ropProductionTime,jdbcType=DATE},
+			</if>
+			<if test="ropWarehouseEntryTime != null">
+				rop_warehouse_entry_time =
+				#{ropWarehouseEntryTime,jdbcType=DATE},
+			</if>
+			<if test="ropIntoWarehouse != null">
+				rop_into_warehouse =
+				#{ropIntoWarehouse,jdbcType=VARCHAR},
+			</if>
+			<if test="batchNumber != null">
+				batch_number = #{batchNumber,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where rop_id = #{ropId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.model.RopTable">
+		update rop_table
+		set capacity_id =
+		#{capacityId,jdbcType=VARCHAR},
+		commodity_id =
+		#{commodityId,jdbcType=VARCHAR},
+		rop_unit =
+		#{ropUnit,jdbcType=INTEGER},
+		rop_loss = #{ropLoss,jdbcType=INTEGER},
+		rop_production_time = #{ropProductionTime,jdbcType=DATE},
+		rop_warehouse_entry_time = #{ropWarehouseEntryTime,jdbcType=DATE},
+		rop_into_warehouse = #{ropIntoWarehouse,jdbcType=VARCHAR},
+		batch_number = #{batchNumber,jdbcType=VARCHAR}
+		where rop_id =
+		#{ropId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getRopTableNum" resultType="int"
+		parameterType="java.lang.String">
+		select count(*)
+		FROM
+		rop_table
+		INNER JOIN
+		system_commodity_information ON
+		rop_table.commodity_id =
+		system_commodity_information.commodity_id
+		INNER JOIN capacity ON
+		rop_table.capacity_id = capacity.capacity_id
+		where
+		(capacity.capacity_production_line_name like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or
+		system_commodity_information.commodity_name like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.rop_unit like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.rop_loss like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or
+		rop_table.rop_into_warehouse like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.batch_number
+		like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		)
+
+	</select>
+
+	<select id="getRopTableNumByBus" resultType="int">
+		select count(*)
+		FROM
+		rop_table,system_commodity_information,capacity
+		where
+		rop_table.capacity_id = capacity.capacity_id
+		and rop_table.commodity_id
+		= system_commodity_information.commodity_id
+		and
+		(capacity.capacity_production_line_name like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or
+		system_commodity_information.commodity_name like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.rop_unit like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.rop_loss like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or
+		rop_table.rop_into_warehouse like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.batch_number
+		like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		) and (SELECT COUNT(1)
+		FROM order_person where rop_table.rop_id =
+		order_person.rop_id
+		)=#{appear_count}
+	</select>
+
+	<select id="selectLikeByBus" resultMap="RopResultMap">
+		SELECT
+		rop_table.rop_id,
+		rop_table.capacity_id,
+		capacity.capacity_production_line_name,
+		rop_table.commodity_id,
+		system_commodity_information.commodity_name,
+		rop_table.rop_unit,
+		rop_table.rop_loss,
+		rop_table.rop_production_time,
+		rop_table.rop_warehouse_entry_time,
+		rop_table.rop_into_warehouse,
+		rop_table.batch_number
+		FROM
+		rop_table,system_commodity_information,capacity
+		where
+		rop_table.capacity_id = capacity.capacity_id
+		and rop_table.commodity_id
+		= system_commodity_information.commodity_id
+		and
+		(capacity.capacity_production_line_name like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or
+		system_commodity_information.commodity_name like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.rop_unit like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.rop_loss like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or
+		rop_table.rop_into_warehouse like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.batch_number
+		like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		) and (SELECT COUNT(1)
+		FROM order_person where rop_table.rop_id =
+		order_person.rop_id
+		)=#{appear_count}
+		ORDER BY rop_table.rop_production_time
+		limit
+		#{start},#{numPerPage}
+	</select>
+	<select id="selectLike" resultMap="RopResultMap">
+		SELECT
+		rop_table.rop_id,
+		rop_table.capacity_id,
+		capacity.capacity_production_line_name,
+		rop_table.commodity_id,
+		system_commodity_information.commodity_name,
+		rop_table.rop_unit,
+		rop_table.rop_loss,
+		rop_table.rop_production_time,
+		rop_table.rop_warehouse_entry_time,
+		rop_table.rop_into_warehouse,
+		rop_table.batch_number
+		FROM
+		rop_table,system_commodity_information,capacity
+		where
+		rop_table.commodity_id = system_commodity_information.commodity_id
+		and
+		rop_table.capacity_id = capacity.capacity_id
+		and
+		(capacity.capacity_production_line_name like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or
+		system_commodity_information.commodity_name like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.rop_unit like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.rop_loss like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or
+		rop_table.rop_into_warehouse like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		or rop_table.batch_number
+		like
+		CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		)
+		ORDER BY
+		rop_table.rop_production_time
+		limit #{start},#{numPerPage}
+	</select>
+	<select id="selectByBatchCount" resultType="int"
+		parameterType="java.lang.String">
+		select count(*)
+		FROM
+		rop_table
+		where
+		batch_number
+		=#{batchNumber,jdbcType=VARCHAR}
+	</select>
+
+	<select id="getInfoTable" resultMap="BaseMap">
+		SELECT
+		rop_table.rop_unit,
+		sys_material.material_name,
+		formula.material_id,
+		formula.formula_count,
+		rop_table.rop_id,
+		sys_material.price
+		FROM
+		rop_table
+		INNER JOIN formula ON
+		rop_table.commodity_id = formula.commodity_id
+		INNER JOIN
+		system_commodity_information ON rop_table.commodity_id =
+		system_commodity_information.commodity_id
+		INNER JOIN sys_material ON
+		formula.material_id = sys_material.material_id
+		left join order_person ON order_person.rop_id = rop_table.rop_id
+		where commodity_name 
+		like #{s,jdbcType=VARCHAR} and order_person.rop_id is NULL limit
+		#{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+	</select>
+
+	<select id="getTotalNum" resultMap="BaseMap">
+		SELECT
+		rop_table.rop_unit,
+		sys_material.material_name,
+		formula.material_id,
+		formula.formula_count,
+		rop_table.rop_id,
+		sys_material.price
+		FROM
+		rop_table
+		INNER JOIN formula ON
+		rop_table.commodity_id = formula.commodity_id
+		INNER JOIN
+		system_commodity_information ON rop_table.commodity_id =
+		system_commodity_information.commodity_id
+		INNER JOIN sys_material ON
+		formula.material_id = sys_material.material_id
+		left join order_person ON order_person.rop_id = rop_table.rop_id
+		where commodity_name 
+		like #{s,jdbcType=VARCHAR} and order_person.rop_id is NULL 
+	</select>
+</mapper>

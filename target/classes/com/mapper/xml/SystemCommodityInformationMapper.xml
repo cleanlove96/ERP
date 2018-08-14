@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.SystemCommodityInformationMapper" >
+  <resultMap id="BaseResultMap" type="com.model.SystemCommodityInformation" >
+    <id column="commodity_id" property="commodityId" jdbcType="VARCHAR" />
+    <result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+    <result column="commodity_specification" property="commoditySpecification" jdbcType="VARCHAR" />    
+    <result column="commodity_place" property="commodityPlace" jdbcType="VARCHAR" />
+    <result column="commodtyl_type" property="commodtylType" jdbcType="VARCHAR" />
+    <result column="commodty_brand" property="commodtyBrand" jdbcType="VARCHAR" />
+    <result column="commodty_degrees" property="commodtyDegrees" jdbcType="VARCHAR" />
+    <result column="commodty_recipe" property="commodtyRecipe" jdbcType="VARCHAR" />
+    <result column="commodty_expiration_date" property="commodtyExpirationDate" jdbcType="VARCHAR" />
+    <result column="commodty_odor_type" property="commodtyOdorType" jdbcType="VARCHAR" />
+    <result column="commodty_price" property="commodtyPrice" jdbcType="DOUBLE" />
+    <result column="commodty_status" property="commodtyStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    commodity_id, commodity_name, commodity_specification, commodity_place, 
+    commodtyl_type, commodty_brand, commodty_degrees, commodty_recipe, commodty_expiration_date, 
+    commodty_odor_type, commodty_price, commodty_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_commodity_information
+    where commodity_id = #{commodityId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from system_commodity_information
+    where commodity_id = #{commodityId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.SystemCommodityInformation" >
+    insert into system_commodity_information (commodity_id, commodity_name, commodity_specification, 
+      commodity_place, commodtyl_type, 
+      commodty_brand, commodty_degrees, commodty_recipe, 
+      commodty_expiration_date, commodty_odor_type, 
+      commodty_price, commodty_status)
+    values (#{commodityId,jdbcType=VARCHAR}, #{commodityName,jdbcType=VARCHAR}, #{commoditySpecification,jdbcType=VARCHAR}, 
+      #{commodityPlace,jdbcType=VARCHAR}, #{commodtylType,jdbcType=VARCHAR}, 
+      #{commodtyBrand,jdbcType=VARCHAR}, #{commodtyDegrees,jdbcType=VARCHAR}, #{commodtyRecipe,jdbcType=VARCHAR}, 
+      #{commodtyExpirationDate,jdbcType=VARCHAR}, #{commodtyOdorType,jdbcType=VARCHAR}, 
+      #{commodtyPrice,jdbcType=DOUBLE}, #{commodtyStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.SystemCommodityInformation" >
+    insert into system_commodity_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commodityId != null" >
+        commodity_id,
+      </if>
+      <if test="commodityName != null" >
+        commodity_name,
+      </if>
+      <if test="commoditySpecification != null" >
+        commodity_specification,
+      </if>
+      <if test="commodityPlace != null" >
+        commodity_place,
+      </if>
+      <if test="commodtylType != null" >
+        commodtyl_type,
+      </if>
+      <if test="commodtyBrand != null" >
+        commodty_brand,
+      </if>
+      <if test="commodtyDegrees != null" >
+        commodty_degrees,
+      </if>
+      <if test="commodtyRecipe != null" >
+        commodty_recipe,
+      </if>
+      <if test="commodtyExpirationDate != null" >
+        commodty_expiration_date,
+      </if>
+      <if test="commodtyOdorType != null" >
+        commodty_odor_type,
+      </if>
+      <if test="commodtyPrice != null" >
+        commodty_price,
+      </if>
+      <if test="commodtyStatus != null" >
+        commodty_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commodityId != null" >
+        #{commodityId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityName != null" >
+        #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="commoditySpecification != null" >
+        #{commoditySpecification,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityPlace != null" >
+        #{commodityPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtylType != null" >
+        #{commodtylType,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyBrand != null" >
+        #{commodtyBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyDegrees != null" >
+        #{commodtyDegrees,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyRecipe != null" >
+        #{commodtyRecipe,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyExpirationDate != null" >
+        #{commodtyExpirationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyOdorType != null" >
+        #{commodtyOdorType,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyPrice != null" >
+        #{commodtyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="commodtyStatus != null" >
+        #{commodtyStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.SystemCommodityInformation" >
+    update system_commodity_information
+    <set >
+      <if test="commodityName != null" >
+        commodity_name = #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="commoditySpecification != null" >
+        commodity_specification = #{commoditySpecification,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityPlace != null" >
+        commodity_place = #{commodityPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtylType != null" >
+        commodtyl_type = #{commodtylType,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyBrand != null" >
+        commodty_brand = #{commodtyBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyDegrees != null" >
+        commodty_degrees = #{commodtyDegrees,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyRecipe != null" >
+        commodty_recipe = #{commodtyRecipe,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyExpirationDate != null" >
+        commodty_expiration_date = #{commodtyExpirationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyOdorType != null" >
+        commodty_odor_type = #{commodtyOdorType,jdbcType=VARCHAR},
+      </if>
+      <if test="commodtyPrice != null" >
+        commodty_price = #{commodtyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="commodtyStatus != null" >
+        commodty_status = #{commodtyStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where commodity_id = #{commodityId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.SystemCommodityInformation" >
+    update system_commodity_information
+    set commodity_name = #{commodityName,jdbcType=VARCHAR},
+      commodity_specification = #{commoditySpecification,jdbcType=VARCHAR},
+      commodity_place = #{commodityPlace,jdbcType=VARCHAR},
+      commodtyl_type = #{commodtylType,jdbcType=VARCHAR},
+      commodty_brand = #{commodtyBrand,jdbcType=VARCHAR},
+      commodty_degrees = #{commodtyDegrees,jdbcType=VARCHAR},
+      commodty_recipe = #{commodtyRecipe,jdbcType=VARCHAR},
+      commodty_expiration_date = #{commodtyExpirationDate,jdbcType=VARCHAR},
+      commodty_odor_type = #{commodtyOdorType,jdbcType=VARCHAR},
+      commodty_price = #{commodtyPrice,jdbcType=DOUBLE},
+      commodty_status = #{commodtyStatus,jdbcType=VARCHAR}
+    where commodity_id = #{commodityId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectCommodity" resultMap="BaseResultMap" >
+  	select * from system_commodity_information where commodity_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%')  limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER} 
+  </select>
+  <select id="selectPageCount" resultType="java.lang.Integer">
+  	select count(*) from system_commodity_information where commodity_name like CONCAT('%',#{search,jdbcType=VARCHAR},'%') 
+  </select>
+  <insert id="addCommodity">
+  	insert into system_commodity_information (commodity_id, commodity_name, commodity_specification, 
+      commodity_place, commodtyl_type, 
+      commodty_brand, commodty_degrees, commodty_recipe, 
+      commodty_expiration_date, commodty_odor_type, 
+      commodty_price, commodty_status)
+    values (#{commodityId,jdbcType=VARCHAR}, #{commodityName,jdbcType=VARCHAR}, #{commoditySpecification,jdbcType=VARCHAR}, 
+      #{commodityPlace,jdbcType=VARCHAR}, #{commodityType,jdbcType=VARCHAR}, 
+      #{commodityBrand,jdbcType=VARCHAR}, #{commodityDegrees,jdbcType=VARCHAR}, #{commodityRecipe,jdbcType=VARCHAR}, 
+      #{commodityExpiration,jdbcType=VARCHAR}, #{commodityOdor,jdbcType=VARCHAR}, 
+      #{commodityPrice,jdbcType=DOUBLE}, #{commodityStatus,jdbcType=VARCHAR});  
+  </insert>
+  <update id="updateStatus">
+  	update system_commodity_information set commodty_status = #{status,jdbcType=VARCHAR} where commodity_id = #{commodityId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateCommodity">
+    update system_commodity_information
+    set commodity_name = #{commodityName,jdbcType=VARCHAR},
+      commodity_specification = #{commoditySpecification,jdbcType=VARCHAR},
+      commodity_place = #{commodityPlace,jdbcType=VARCHAR},
+      commodtyl_type = #{commodityType,jdbcType=VARCHAR},
+      commodty_brand = #{commodityBrand,jdbcType=VARCHAR},
+      commodty_degrees = #{commodityDegrees,jdbcType=VARCHAR},
+      commodty_recipe = #{commodityRecipe,jdbcType=VARCHAR},
+      commodty_expiration_date = #{commodityExpiration,jdbcType=VARCHAR},
+      commodty_odor_type = #{commodityOdor,jdbcType=VARCHAR},
+      commodty_price = #{commodityPrice,jdbcType=DOUBLE}
+    where commodity_id = #{commodityId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectCommodityByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from system_commodity_information where commodity_name = #{searchName,jdbcType=VARCHAR},
+  </select>
+  <select id="selectAllCommodity" resultMap="BaseResultMap" >
+  	select * from system_commodity_information where commodty_status = "启用"
+  </select>
+
+</mapper>
