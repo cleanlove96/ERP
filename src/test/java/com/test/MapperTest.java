@@ -45,6 +45,7 @@ public class MapperTest {
 		srm.insert(sr);
 		SysRole sr2=srm.selectByPrimaryKey(id);
 		System.out.println(sr2.getRoleName());
+		System.out.println(sr2.getRoleName());
 	}
 
 }
