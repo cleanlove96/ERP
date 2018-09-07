@@ -27,7 +27,7 @@ import com.pojo.AuthGroupPojo;
 @WebAppConfiguration//参见官方文档：https://docs.spring.io/spring/docs/4.3.18.RELEASE/spring-framework-reference/htmlsingle/#spring-mvc-test-server
 @ContextConfiguration("classpath:spring.xml")
 public class ControllerTest {
-	
+	//这是测试类
 	@Resource
 	private WebApplicationContext context;
 	
